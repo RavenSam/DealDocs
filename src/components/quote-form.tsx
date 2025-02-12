@@ -7,15 +7,7 @@ interface QuoteFormProps {
 }
 
 export const QuoteForm = ({ onStepsChange }: QuoteFormProps) => {
-	const initialSteps: Step[] = [
-		{
-			id: Date.now(),
-			description: "",
-			price: 0,
-			useSubstepPricing: false,
-			substeps: [],
-		},
-	]
+	const initialSteps: Step[] = [{ id: Date.now(), description: "", price: 0, useSubstepPricing: false, substeps: [] }]
 
 	const [steps, setSteps] = useState<Step[]>(initialSteps)
 
@@ -24,13 +16,7 @@ export const QuoteForm = ({ onStepsChange }: QuoteFormProps) => {
 	}, [steps, onStepsChange])
 
 	const handleAddStep = () => {
-		const newStep: Step = {
-			id: Date.now(),
-			description: "",
-			price: 0,
-			useSubstepPricing: false,
-			substeps: [],
-		}
+		const newStep: Step = { id: Date.now(), description: "", price: 0, useSubstepPricing: false, substeps: [] }
 		setSteps([...steps, newStep])
 	}
 

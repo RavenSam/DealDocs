@@ -55,7 +55,7 @@ export const Home = () => {
 				<div className="absolute inset-0 bg-gradient-to-t from-white" />
 			</div>
 
-			<div className="container relative z-10 p-4 mx-auto -mt-66">
+			<div className="container relative z-10 p-4 mx-auto -mt-64">
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 ">
 					<div className="">
 						<h2 className="mb-4 text-xl font-semibold">Create</h2>
@@ -64,7 +64,7 @@ export const Home = () => {
 					<div>
 						<div className="flex items-center justify-between">
 							<h2 className="mb-4 text-xl font-semibold">Preview</h2>
-							<div className="flex items-center">
+							<div className="flex items-center -mt-2">
 								<Button onClick={downloadPdf} variant="outline">
 									<DownloadIcon className="size-4" />
 									<span className="ml-1">Download PDF</span>
@@ -73,7 +73,7 @@ export const Home = () => {
 								<SettingsDrawer settings={settings} setSettings={setSettings} />
 							</div>
 						</div>
-						<div className="p-4 border rounded-md shadow-md bg-white/50 backdrop-blur-md">
+						<div className="p-4 border rounded-md shadow-md bg-white/40 backdrop-blur-md">
 							<QuoteTemplate steps={steps} settings={settings} />
 						</div>
 					</div>

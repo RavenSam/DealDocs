@@ -90,7 +90,7 @@ export const StepItem = ({
 	}
 
 	return (
-		<div className="p-4 mb-4 border rounded-md bg-white/50 backdrop-blur-md">
+		<div className="p-4 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
 				<div>
 					<Label htmlFor={`step-description-${step.id}`}>Step {index + 1}</Label>

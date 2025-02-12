@@ -62,7 +62,7 @@ export const SettingsDrawer = ({ settings, setSettings }: SettingsDrawerProps) =
 					<SheetTitle>Quote Settings</SheetTitle>
 					<SheetDescription>Customize your quote details</SheetDescription>
 				</SheetHeader>
-				<div className="px-4 mt-4 space-y-4">
+				<div className="mt-4 space-y-4">
 					<div>
 						<Label htmlFor="agencyName">Agency Name</Label>
 						<Input
