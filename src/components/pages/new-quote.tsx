@@ -60,7 +60,7 @@ export const NewQuote = () => {
 						<div className="flex items-center justify-between">
 							<h2 className="mb-4 text-xl font-semibold">Preview</h2>
 							<div className="flex items-center -mt-2">
-								<Button onClick={downloadPdf} variant="outline">
+								<Button onClick={downloadPdf} variant="outline" disabled={downloading}>
 									{downloading ? <Loader2Icon className="size-4 animate-spin" /> : <DownloadIcon className="size-4" />}
 									<span className="ml-1">{downloading ? "Downloading..." : "Download PDF"}</span>
 								</Button>
