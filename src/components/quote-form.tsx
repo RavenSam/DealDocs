@@ -24,11 +24,14 @@ export const QuoteForm = () => {
 				))}
 			</div>
 
-			<div className="flex items-center justify-end">
-				<Button onClick={addStep} size={"lg"} className="mt-2 font-bold tracking-wider">
-					Add Step
-				</Button>
-			</div>
+			<Button
+				onClick={addStep}
+				size={"lg"}
+				variant={"outline"}
+				className="w-full mt-2 font-bold tracking-wider border-dashed border-muted-foreground"
+			>
+				Add Step
+			</Button>
 
 			<div className="p-2 mt-10 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
 				<Accordion type="single" collapsible>
@@ -41,6 +44,7 @@ export const QuoteForm = () => {
 									id="clientName"
 									value={clientInfo.clientName}
 									onChange={(e) => updateClientInfo("clientName", e.target.value)}
+									autoFocus
 								/>
 							</div>
 							<div>

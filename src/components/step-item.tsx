@@ -27,6 +27,13 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 		}
 	}, [substeps, useSubstepPricing, calculatedStepPrice, step.id, updateStep, stepFromStore])
 
+	useEffect(() => {
+		if (step.substeps.length === 0) {
+			setUseSubstepPricing(false)
+			updateUseSubstepPricingForStep(step.id, false)
+		}
+	}, [step.substeps])
+
 	const handleAddSubstep = () => {
 		const newSubstep: Substep = { id: Date.now(), description: "", price: 0 }
 		const updatedSubsteps = [...substeps, newSubstep]
@@ -56,24 +63,16 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 				</div>
 				<div>
 					<Label htmlFor={`step-price-${step.id}`}>Price {useSubstepPricing ? "(Substep Total)" : ""}</Label>
-					{useSubstepPricing ? (
-						<Input
-							type="number"
-							id={`step-price-${step.id}`}
-							placeholder="Price"
-							value={calculatedStepPrice}
-							readOnly
-							disabled
-						/>
-					) : (
-						<Input
-							type="number"
-							id={`step-price-${step.id}`}
-							placeholder="Price"
-							value={stepFromStore?.price || 0}
-							onChange={(e) => updateStep(step.id, "price", parseFloat(e.target.value))}
-						/>
-					)}
+
+					<Input
+						type="number"
+						id={`step-price-${step.id}`}
+						placeholder="Price"
+						onChange={(e) => updateStep(step.id, "price", parseFloat(e.target.value))}
+						value={useSubstepPricing ? calculatedStepPrice : stepFromStore?.price || 0}
+						readOnly={useSubstepPricing}
+						disabled={useSubstepPricing}
+					/>
 				</div>
 				<div className="flex items-end justify-end">
 					<Button variant="ghost" size="icon" onClick={() => removeStepFromStore(step.id)}>
@@ -83,7 +82,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 			</div>
 
 			{substeps.length > 0 && (
-				<div className="flex items-center pt-2 pb-1 pl-4 border-black border-l-1">
+				<div className="flex items-center pt-2 pb-1 pl-4 border-l-2 border-black">
 					<Switch
 						id={`use-substep-pricing-${step.id}`}
 						checked={useSubstepPricing}
@@ -100,7 +99,12 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 					<SubstepItem key={substep.id} substep={substep} index={subIndex} />
 				))}
 
-				<Button onClick={handleAddSubstep} variant="outline" size="sm" className="mt-1 border-dashed">
+				<Button
+					onClick={handleAddSubstep}
+					variant="outline"
+					size="sm"
+					className="mt-1 border-dashed border-muted-foreground"
+				>
 					<PlusIcon className="mr-1 size-4" />
 					Add Substep
 				</Button>

@@ -2,12 +2,9 @@ import React from "react"
 import { Step, useQuoteStore } from "@/store/quoteStore"
 import { useSettingsStore } from "@/store/settingsStore"
 import { formatCurrency, isEmptyHtml } from "@/utils"
+import { cn } from "@/lib/utils"
 
-export interface QuoteTemplateProps {
-	isPreview?: boolean
-}
-
-export const QuoteTemplate = ({ isPreview = false }: QuoteTemplateProps) => {
+export const QuoteTemplate = () => {
 	const quoteId = useQuoteStore((state) => state.quoteId)
 	const steps = useQuoteStore((state) => state.steps)
 	const settings = useSettingsStore((state) => state.settings)
@@ -48,7 +45,7 @@ export const QuoteTemplate = ({ isPreview = false }: QuoteTemplateProps) => {
 				</div>
 			</div>
 			<div className="min-h-[200px]">
-				<QuoteTable steps={steps} isPreview={isPreview} currency={settings?.currency || "USD"} />
+				<QuoteTable steps={steps} currency={settings?.currency || "USD"} />
 			</div>
 			<div className="mb-8 text-xl font-bold text-right">
 				Total: {formatCurrency(totalAmount, settings?.currency || "USD")}
@@ -70,41 +67,46 @@ export const QuoteTemplate = ({ isPreview = false }: QuoteTemplateProps) => {
 
 interface QuoteTableProps {
 	steps: Step[]
-	isPreview: boolean
 	currency: string
 }
 
-const QuoteTable = ({ steps, isPreview, currency }: QuoteTableProps) => {
+const QuoteTable = ({ steps, currency }: QuoteTableProps) => {
 	return (
 		<table className="w-full mb-8 border-collapse">
 			<thead>
 				<tr className="border-b border-black">
-					<th className="p-2 text-left border-b border-gray-300">Service Description</th>
-					<th className="p-2 text-right border-b border-gray-300">Price</th>
+					<th className="p-2 text-left border-b border-muted-foreground">Service Description</th>
+					<th className="p-2 text-right border-b border-muted-foreground">Price</th>
 				</tr>
 			</thead>
 			<tbody>
 				{(steps || []).map((item) => (
 					<React.Fragment key={item.id}>
-						<tr className="border-b border-gray-200">
-							<td className="p-2 font-semibold text-left border-b border-gray-300">{item.description}</td>
-							<td className="p-2 font-semibold text-right border-b border-gray-300">
+						<tr
+							className={cn(
+								"border-b",
+								item.substeps.length > 0 ? "border-muted-foreground/30 border-dashed" : "border-muted-foreground"
+							)}
+						>
+							<td className="p-2 font-semibold text-left">{item.description}</td>
+							<td className="p-2 font-semibold text-right border-b border-muted-foreground">
 								{formatCurrency(item.price, currency)}
 							</td>
 						</tr>
-						{item.substeps &&
-							item.substeps.length > 0 &&
-							item.substeps.map((subItem) => (
-								<tr key={subItem.id} className="border-b border-gray-200">
-									<td className="px-2 py-1 text-sm text-left border-b border-gray-200">
-										{isPreview ? "- " : "\u00A0\u00A0\u00A0\u00A0- "}
-										{subItem.description}
-									</td>
-									<td className="px-2 py-1 text-sm text-right border-b border-gray-200">
-										{formatCurrency(subItem.price, currency)}
-									</td>
-								</tr>
-							))}
+						<tr className="w-full">
+							{item.substeps.length > 0 &&
+								item.substeps.map((subItem) => (
+									<tr
+										key={subItem.id}
+										className="flex items-center justify-between w-full border-r last:border-b border-muted-foreground"
+									>
+										<td className="p-0 text-sm text-left">
+											<div className="p-1 pl-3 border-l-2 border-black">{subItem.description}</div>
+										</td>
+										<td className="p-0 pr-2 text-sm text-right">{formatCurrency(subItem.price, currency)}</td>
+									</tr>
+								))}
+						</tr>
 					</React.Fragment>
 				))}
 			</tbody>

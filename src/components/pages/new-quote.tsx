@@ -79,7 +79,7 @@ export const NewQuote = () => {
 					className="py-16"
 					ref={quoteRef}
 				>
-					<QuoteTemplate isPreview />
+					<QuoteTemplate />
 				</div>
 			</div>
 		</div>

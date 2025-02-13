@@ -27,7 +27,7 @@ export const SubstepItem = ({ substep, index }: { substep: Substep; index: numbe
 	}
 
 	return (
-		<div className="grid grid-cols-1 gap-2 py-1 pl-4 border-black md:grid-cols-3 border-l-1">
+		<div className="grid grid-cols-1 gap-2 py-1 pl-4 border-l-2 border-black md:grid-cols-3">
 			<div>
 				<Label htmlFor={`substep-description-${substep.id}`}>Substep {index + 1}</Label>
 				<Input
