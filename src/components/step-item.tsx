@@ -2,9 +2,9 @@ import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Switch } from "./ui/switch"
+import { Switch } from "@/components/ui/switch"
 import { PlusIcon, Trash2Icon } from "lucide-react"
-import { SubstepItem } from "./sub-step-Item"
+import { SubstepItem } from "@/components/sub-step-Item"
 import { Step, Substep, useQuoteStore } from "@/store/quoteStore"
 
 export const StepItem = ({ step, index }: { step: Step; index: number }) => {

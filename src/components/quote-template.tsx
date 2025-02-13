@@ -1,14 +1,7 @@
 import React from "react"
 import { Step, useQuoteStore } from "@/store/quoteStore"
 import { useSettingsStore } from "@/store/settingsStore"
-import { isEmptyHtml } from "@/utils/is-empty-html"
-
-export const formatCurrency = (amount: number, currency: string): string => {
-	return new Intl.NumberFormat("en-US", {
-		style: "currency",
-		currency: currency,
-	}).format(amount)
-}
+import { formatCurrency, isEmptyHtml } from "@/utils"
 
 export interface QuoteTemplateProps {
 	isPreview?: boolean

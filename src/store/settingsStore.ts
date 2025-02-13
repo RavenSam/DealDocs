@@ -1,16 +1,5 @@
 import { create } from "zustand"
 
-export interface Settings {
-	agencyName: string
-	agencyLogo: string
-	quoteDescription: string
-	footerText: string
-	currency: string
-	name: string
-	agencyEmail: string
-	agencyAddress: string
-}
-
 export const DEFAULT_SETTINGS: Settings = {
 	agencyName: "Agency Name",
 	agencyLogo: "/placeholder.svg",
@@ -20,6 +9,26 @@ export const DEFAULT_SETTINGS: Settings = {
 	agencyAddress: "123 street address",
 	agencyEmail: "your@email.com",
 	name: "You Name",
+}
+
+export const CURRENCIES = [
+	{ currency: "USD", locale: "en-US" }, // English (United States)
+	{ currency: "EUR", locale: "de-DE" }, // German (Germany) - Example locale
+	{ currency: "DZD", locale: "de-DE" }, // Arabic (Algeria)
+	{ currency: "GBP", locale: "en-GB" }, // English (United Kingdom)
+	{ currency: "JPY", locale: "ja-JP" }, // Japanese (Japan)
+	{ currency: "CAD", locale: "en-CA" }, // English (Canada)
+]
+
+export interface Settings {
+	agencyName: string
+	agencyLogo: string
+	quoteDescription: string
+	footerText: string
+	currency: string
+	name: string
+	agencyEmail: string
+	agencyAddress: string
 }
 
 interface SettingsState {

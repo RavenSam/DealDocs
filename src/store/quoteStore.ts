@@ -1,4 +1,4 @@
-import { generateQuoteId } from "@/utils/generate-quote-id"
+import { generateQuoteId } from "@/utils"
 import { create } from "zustand"
 
 export interface Substep {

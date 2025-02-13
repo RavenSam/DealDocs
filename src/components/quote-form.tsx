@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button"
-import { StepItem } from "./step-item"
+import { StepItem } from "@/components/step-item"
 import { useQuoteStore } from "@/store/quoteStore"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Label } from "./ui/label"
-import { Input } from "./ui/input"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 import ReactQuill from "react-quill"
+
 import "react-quill/dist/quill.snow.css"
 
 export const QuoteForm = () => {

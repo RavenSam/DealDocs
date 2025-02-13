@@ -6,9 +6,7 @@ import { Label } from "@/components/ui/label"
 import { SaveIcon, Settings2 } from "lucide-react"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Settings, useSettingsStore } from "@/store/settingsStore"
-
-const CURRENCIES = ["USD", "EUR", "DZD", "GBP", "JPY", "CAD"]
+import { CURRENCIES, Settings, useSettingsStore } from "@/store/settingsStore"
 
 export const SettingsDrawer = () => {
 	const [open, setOpen] = useState<boolean>(false)
@@ -95,11 +93,10 @@ export const SettingsDrawer = () => {
 							<SelectTrigger id="currency">
 								<SelectValue placeholder="Select a currency" />
 							</SelectTrigger>
-
 							<SelectContent>
-								{CURRENCIES.map((currency) => (
-									<SelectItem key={currency} value={currency}>
-										{currency}
+								{CURRENCIES.map((currencyObj) => (
+									<SelectItem key={currencyObj.currency} value={currencyObj.currency}>
+										{currencyObj.currency}
 									</SelectItem>
 								))}
 							</SelectContent>
