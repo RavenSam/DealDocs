@@ -1,3 +1,4 @@
+import { generateQuoteId } from "@/utils/generate-quote-id"
 import { create } from "zustand"
 
 export interface Substep {
@@ -14,7 +15,14 @@ export interface Step {
 	substeps: Substep[]
 }
 
+export interface ClientInfo {
+	clientName: string
+	clientEmail: string
+	clientAddress: string
+}
+
 interface QuoteState {
+	quoteId: string
 	steps: Step[]
 	setSteps: (steps: Step[]) => void
 	addStep: () => void
@@ -22,10 +30,15 @@ interface QuoteState {
 	updateStep: (id: number, field: keyof Step, value: any) => void
 	updateSubstepsForStep: (stepId: number, substeps: any[]) => void
 	updateUseSubstepPricingForStep: (stepId: number, useSubstepPricing: boolean) => void
+
+	clientInfo: ClientInfo
+	updateClientInfo: (field: keyof ClientInfo, value: string) => void
 }
 
 export const useQuoteStore = create<QuoteState>((set, get) => ({
-	steps: [{ id: Date.now(), description: "", price: 0, useSubstepPricing: false, substeps: [] }], // Initial state
+	quoteId: generateQuoteId(),
+
+	steps: [{ id: Date.now(), description: "", price: 0, useSubstepPricing: false, substeps: [] }],
 
 	setSteps: (steps) => set({ steps }),
 
@@ -51,5 +64,10 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
 	updateUseSubstepPricingForStep: (stepId, useSubstepPricing) => {
 		const updatedSteps = get().steps.map((step) => (step.id === stepId ? { ...step, useSubstepPricing } : step))
 		set({ steps: updatedSteps })
+	},
+
+	clientInfo: { clientName: "", clientEmail: "", clientAddress: "" },
+	updateClientInfo: (field, value) => {
+		set((state) => ({ ...state, clientInfo: { ...state.clientInfo, [field]: value } }))
 	},
 }))

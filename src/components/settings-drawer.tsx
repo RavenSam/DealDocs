@@ -6,27 +6,9 @@ import { Label } from "@/components/ui/label"
 import { Settings2 } from "lucide-react"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useSettingsStore } from "@/store/settingsStore" // Import settings store
+import { Settings, useSettingsStore } from "@/store/settingsStore"
 
 const CURRENCIES = ["USD", "EUR", "DZD", "GBP", "JPY", "CAD"]
-
-export interface Settings {
-	// Keep interface as it is used in store and component
-	agencyName: string
-	agencyLogo: string
-	quoteDescription: string
-	footerText: string
-	currency: string
-}
-
-export const DEFAULT_SETTINGS: Settings = {
-	// Keep DEFAULT_SETTINGS
-	agencyName: "Your Agency Name",
-	agencyLogo: "/placeholder.svg",
-	quoteDescription: "Professional Services Quote",
-	currency: "USD",
-	footerText: "Thank you for considering us for your project. Please contact us if you have any questions.",
-}
 
 export const SettingsDrawer = () => {
 	// Removed props
@@ -59,7 +41,7 @@ export const SettingsDrawer = () => {
 					<Settings2 className="size-5" />
 				</Button>
 			</SheetTrigger>
-			<SheetContent className="">
+			<SheetContent className="md:max-w-xl">
 				<SheetHeader>
 					<SheetTitle>Quote Settings</SheetTitle>
 					<SheetDescription>Customize your quote details</SheetDescription>
@@ -79,6 +61,27 @@ export const SettingsDrawer = () => {
 							id="agencyLogo"
 							value={settings.agencyLogo}
 							onChange={(e) => handleChange("agencyLogo", e.target.value)}
+						/>
+					</div>
+					<div>
+						<Label htmlFor="clientName">Client Name</Label>
+						<Input id="clientName" value={settings.name} onChange={(e) => handleChange("name", e.target.value)} />
+					</div>
+					<div>
+						<Label htmlFor="clientAddress">Client Address</Label>
+						<Input
+							id="clientAddress"
+							value={settings.agencyAddress}
+							onChange={(e) => handleChange("agencyAddress", e.target.value)}
+						/>
+					</div>
+					<div>
+						<Label htmlFor="clientEmail">Client Email</Label>
+						<Input
+							id="clientEmail"
+							type="email"
+							value={settings.agencyEmail}
+							onChange={(e) => handleChange("agencyEmail", e.target.value)}
 						/>
 					</div>
 					<div>

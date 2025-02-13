@@ -8,8 +8,6 @@ export const SubstepItem = ({ substep, index }: { substep: Substep; index: numbe
 	const updateSubstepsForStep = useQuoteStore((state) => state.updateSubstepsForStep)
 	const steps = useQuoteStore((state) => state.steps)
 
-	console.log({ substep })
-
 	const handleSubstepChange = (field: keyof Substep, value: any) => {
 		const stepParent = steps.find((s) => s.substeps.some((sub) => sub.id === substep.id))
 		if (stepParent) {

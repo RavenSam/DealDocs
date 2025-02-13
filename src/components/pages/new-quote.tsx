@@ -7,19 +7,20 @@ import { QuoteTemplate } from "@/components/quote-template"
 import { DownloadIcon } from "lucide-react"
 import { SettingsDrawer } from "@/components/settings-drawer"
 import { useSettingsStore } from "@/store/settingsStore"
+import { useQuoteStore } from "@/store/quoteStore"
 
 export const NewQuote = () => {
 	const quoteRef = useRef<HTMLDivElement>(null)
-	const settings = useSettingsStore((state) => state.settings)
 	const setSettings = useSettingsStore((state) => state.setSettings)
+	const quoteId = useQuoteStore((state) => state.quoteId)
+	const clientInfo = useQuoteStore((state) => state.clientInfo)
 
-	// Load settings from localStorage on mount (using store's setSettings)
 	useEffect(() => {
 		const storedSettings = localStorage.getItem("quoteSettings")
 		if (storedSettings) {
 			setSettings(JSON.parse(storedSettings))
 		}
-	}, [setSettings]) // Dependency on the store's setSettings
+	}, [setSettings])
 
 	const downloadPdf = async () => {
 		const input = quoteRef.current
@@ -34,7 +35,7 @@ export const NewQuote = () => {
 		const imgHeight = canvas.height
 		const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
 		pdf.addImage(imgData, "PNG", 0, 0, imgWidth * ratio, imgHeight * ratio)
-		pdf.save(`${settings.agencyName}-quote.pdf`)
+		pdf.save(`${quoteId}-${clientInfo.clientName}-quote.pdf`)
 	}
 
 	return (

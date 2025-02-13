@@ -1,10 +1,6 @@
-import React, { useRef } from "react"
+import React from "react"
 import { Step, useQuoteStore } from "@/store/quoteStore"
 import { useSettingsStore } from "@/store/settingsStore"
-
-const generateQuoteId = (): string => {
-	return `Q-${Math.random().toString(36).slice(2, 11).toUpperCase()}`
-}
 
 export const formatCurrency = (amount: number, currency: string): string => {
 	return new Intl.NumberFormat("en-US", {
@@ -18,29 +14,43 @@ export interface QuoteTemplateProps {
 }
 
 export const QuoteTemplate = ({ isPreview = false }: QuoteTemplateProps) => {
-	const quoteIdRef = useRef<string>(generateQuoteId())
+	const quoteId = useQuoteStore((state) => state.quoteId)
 	const steps = useQuoteStore((state) => state.steps)
 	const settings = useSettingsStore((state) => state.settings)
+	const clientInfo = useQuoteStore((state) => state.clientInfo)
 
 	const totalAmount = (steps || []).reduce((sum, item) => sum + item.price, 0)
 
 	return (
 		<div className="max-w-2xl p-6 mx-auto font-sans leading-relaxed">
-			<header className="flex items-center mb-8 space-x-4">
-				<img src={settings?.agencyLogo || "/placeholder.svg"} alt={`Logo`} className="h-28" crossOrigin="anonymous" />
+			<header className="grid grid-cols-2 mb-4">
+				<div className="flex items-center space-x-4">
+					<img src={settings.agencyLogo || "/placeholder.svg"} alt={`Logo`} className="h-20" crossOrigin="anonymous" />
+					<div>
+						<h1 className="text-2xl font-bold">{settings?.agencyName}</h1>
+						<p className="text-sm text-muted-foreground">{settings?.quoteDescription}</p>
+					</div>
+				</div>
 
-				<div>
-					<h1 className="text-3xl font-bold">{settings?.agencyName}</h1>
-					<p className="text-gray-600">{settings?.quoteDescription}</p>
+				<div className="flex flex-col text-right">
+					<span>{settings.name}</span>
+					<span>{settings.agencyAddress}</span>
+					<span>{settings.agencyEmail}</span>
 				</div>
 			</header>
-			<div className="flex justify-between mb-6">
-				<div className="flex items-center space-x-2 text-gray-600">
+			<div className="mb-6">
+				<div className="flex items-center px-2 space-x-2 font-medium rounded-md bg-gray-500/10">
 					<span className="">{new Date().toLocaleDateString()}</span>
 					<span>•</span>
-					<span className="">{quoteIdRef.current}</span>
+					<span className="">{quoteId}</span>
 				</div>
-				<div className="text-right"></div>
+
+				<div className="flex flex-col text-right">
+					<h2 className="font-semibold text-muted-foreground">Business Quote For</h2>
+					<span>{clientInfo.clientName}</span>
+					<span>{clientInfo.clientAddress}</span>
+					<span>{clientInfo.clientEmail}</span>
+				</div>
 			</div>
 			<div className="min-h-[200px]">
 				<QuoteTable steps={steps} isPreview={isPreview} currency={settings?.currency || "USD"} />
