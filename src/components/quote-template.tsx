@@ -69,7 +69,7 @@ export const QuoteTemplate = ({ isPreview = false }: QuoteTemplateProps) => {
 }
 
 interface QuoteTableProps {
-	steps: Step[] | undefined
+	steps: Step[]
 	isPreview: boolean
 	currency: string
 }
