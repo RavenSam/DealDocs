@@ -18,6 +18,7 @@ export const QuoteTemplate = ({ isPreview = false }: QuoteTemplateProps) => {
 	const steps = useQuoteStore((state) => state.steps)
 	const settings = useSettingsStore((state) => state.settings)
 	const clientInfo = useQuoteStore((state) => state.clientInfo)
+	const note = useQuoteStore((state) => state.note)
 
 	const totalAmount = (steps || []).reduce((sum, item) => sum + item.price, 0)
 
@@ -58,6 +59,9 @@ export const QuoteTemplate = ({ isPreview = false }: QuoteTemplateProps) => {
 			<div className="mb-8 text-xl font-bold text-right">
 				Total: {formatCurrency(totalAmount, settings?.currency || "USD")}
 			</div>
+
+			{!!(note.length > 0) && <div className="p-4 rounded-md bg-muted-foreground/10">{note}</div>}
+
 			<footer className="pt-4 mt-8 text-sm text-gray-600 border-t">
 				<p>{settings?.footerText}</p>
 			</footer>

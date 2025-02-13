@@ -4,12 +4,15 @@ import { useQuoteStore } from "@/store/quoteStore"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Label } from "./ui/label"
 import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
 
 export const QuoteForm = () => {
 	const steps = useQuoteStore((state) => state.steps)
 	const addStep = useQuoteStore((state) => state.addStep)
 	const updateClientInfo = useQuoteStore((state) => state.updateClientInfo)
 	const clientInfo = useQuoteStore((state) => state.clientInfo)
+	const note = useQuoteStore((state) => state.note)
+	const updateNote = useQuoteStore((state) => state.updateNote)
 
 	return (
 		<div>
@@ -55,6 +58,17 @@ export const QuoteForm = () => {
 									onChange={(e) => updateClientInfo("clientEmail", e.target.value)}
 								/>
 							</div>
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
+			</div>
+
+			<div className="p-2 mt-10 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
+				<Accordion type="single" collapsible>
+					<AccordionItem className="border-none" value="item-1">
+						<AccordionTrigger className="px-2 py-1 font-semibold hover:no-underline">Note</AccordionTrigger>
+						<AccordionContent className="px-2 pt-4 space-y-2">
+							<Textarea value={note} onChange={(e) => updateNote(e.target.value)} />
 						</AccordionContent>
 					</AccordionItem>
 				</Accordion>

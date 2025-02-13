@@ -33,6 +33,9 @@ interface QuoteState {
 
 	clientInfo: ClientInfo
 	updateClientInfo: (field: keyof ClientInfo, value: string) => void
+
+	note: string
+	updateNote: (note: string) => void
 }
 
 export const useQuoteStore = create<QuoteState>((set, get) => ({
@@ -70,4 +73,7 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
 	updateClientInfo: (field, value) => {
 		set((state) => ({ ...state, clientInfo: { ...state.clientInfo, [field]: value } }))
 	},
+
+	note: "",
+	updateNote: (note: string) => set(() => ({ note })),
 }))
