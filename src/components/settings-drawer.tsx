@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Settings2 } from "lucide-react"
+import { SaveIcon, Settings2 } from "lucide-react"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Settings, useSettingsStore } from "@/store/settingsStore"
@@ -11,13 +11,11 @@ import { Settings, useSettingsStore } from "@/store/settingsStore"
 const CURRENCIES = ["USD", "EUR", "DZD", "GBP", "JPY", "CAD"]
 
 export const SettingsDrawer = () => {
-	// Removed props
 	const [open, setOpen] = useState<boolean>(false)
 	const settings = useSettingsStore((state) => state.settings)
 	const setSettingsStore = useSettingsStore((state) => state.setSettings)
 	const updateSetting = useSettingsStore((state) => state.updateSetting)
 
-	// On mount, load any saved settings from local storage.
 	useEffect(() => {
 		const storedSettings = localStorage.getItem("quoteSettings")
 		if (storedSettings) {
@@ -26,7 +24,7 @@ export const SettingsDrawer = () => {
 	}, [setSettingsStore])
 
 	const handleChange = (field: keyof Settings, value: string) => {
-		updateSetting(field, value) // Use updateSetting from store
+		updateSetting(field, value)
 	}
 
 	const handleSave = () => {
@@ -42,9 +40,8 @@ export const SettingsDrawer = () => {
 				</Button>
 			</SheetTrigger>
 			<SheetContent className="md:max-w-xl">
-				<SheetHeader>
+				<SheetHeader className="border-b">
 					<SheetTitle>Quote Settings</SheetTitle>
-					<SheetDescription>Customize your quote details</SheetDescription>
 				</SheetHeader>
 				<div className="mt-4 space-y-4">
 					<div>
@@ -64,21 +61,21 @@ export const SettingsDrawer = () => {
 						/>
 					</div>
 					<div>
-						<Label htmlFor="clientName">Client Name</Label>
-						<Input id="clientName" value={settings.name} onChange={(e) => handleChange("name", e.target.value)} />
+						<Label htmlFor="Name">Name</Label>
+						<Input id="Name" value={settings.name} onChange={(e) => handleChange("name", e.target.value)} />
 					</div>
 					<div>
-						<Label htmlFor="clientAddress">Client Address</Label>
+						<Label htmlFor="agencyAddress">Agency Address</Label>
 						<Input
-							id="clientAddress"
+							id="agencyAddress"
 							value={settings.agencyAddress}
 							onChange={(e) => handleChange("agencyAddress", e.target.value)}
 						/>
 					</div>
 					<div>
-						<Label htmlFor="clientEmail">Client Email</Label>
+						<Label htmlFor="agencyEmail">Agency Email</Label>
 						<Input
-							id="clientEmail"
+							id="agencyEmail"
 							type="email"
 							value={settings.agencyEmail}
 							onChange={(e) => handleChange("agencyEmail", e.target.value)}
@@ -117,7 +114,10 @@ export const SettingsDrawer = () => {
 							onChange={(e) => handleChange("footerText", e.target.value)}
 						/>
 					</div>
-					<Button onClick={handleSave}>Save</Button>
+					<Button className="font-semibold" size={"lg"} onClick={handleSave}>
+						<SaveIcon className="mr-2 size-5" />
+						Save
+					</Button>
 				</div>
 			</SheetContent>
 		</Sheet>
