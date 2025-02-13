@@ -1,57 +1,48 @@
-import { useState, useRef, useEffect } from "react"
+import { useRef, useEffect } from "react"
 import html2canvas from "html2canvas-pro"
 import { jsPDF } from "jspdf"
 import { QuoteForm } from "@/components/quote-form"
 import { Button } from "@/components/ui/button"
 import { QuoteTemplate } from "@/components/quote-template"
 import { DownloadIcon } from "lucide-react"
-import { Step } from "@/components/step-item"
-import { DEFAULT_SETTINGS, Settings, SettingsDrawer } from "@/components/settings-drawer"
+import { SettingsDrawer } from "@/components/settings-drawer"
+import { useQuoteStore } from "@/store/quoteStore"
+import { useSettingsStore } from "@/store/settingsStore"
 
-export const Home = () => {
-	// Initialize with a full Step shape
-	const [steps, setSteps] = useState<Step[]>([
-		{ id: Date.now(), description: "", price: 0, useSubstepPricing: false, substeps: [] },
-	])
-
-	const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS)
+export const NewQuote = () => {
 	const quoteRef = useRef<HTMLDivElement>(null)
+	const steps = useQuoteStore((state) => state.steps)
+	const settings = useSettingsStore((state) => state.settings)
+	const setSettings = useSettingsStore((state) => state.setSettings) // Use the direct setSettings action from store
 
-	// Load settings from localStorage on mount
+	// Load settings from localStorage on mount (using store's setSettings)
 	useEffect(() => {
 		const storedSettings = localStorage.getItem("quoteSettings")
 		if (storedSettings) {
 			setSettings(JSON.parse(storedSettings))
 		}
-	}, [])
+	}, [setSettings]) // Dependency on the store's setSettings
 
-	// The callback receives an updated array of steps
-	const handleStepsChange = (updatedSteps: Step[]): void => {
-		setSteps(updatedSteps)
-	}
-
-	const downloadPdf = () => {
+	const downloadPdf = async () => {
 		const input = quoteRef.current
-		if (!input) return // If the ref is not available, exit
+		if (!input) return
 
-		html2canvas(input, { useCORS: true, allowTaint: false }).then((canvas) => {
-			const imgData = canvas.toDataURL("image/png")
-			const pdf = new jsPDF("p", "mm", "a4", true)
-			const pdfWidth = pdf.internal.pageSize.getWidth()
-			const pdfHeight = pdf.internal.pageSize.getHeight()
-			const imgWidth = canvas.width
-			const imgHeight = canvas.height
-			const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
-			pdf.addImage(imgData, "PNG", 0, 0, imgWidth * ratio, imgHeight * ratio)
-			pdf.save(`${settings.agencyName}-quote.pdf`)
-		})
+		const canvas = await html2canvas(input, { useCORS: true, allowTaint: false })
+		const imgData = canvas.toDataURL("image/png")
+		const pdf = new jsPDF("p", "mm", "a4", true)
+		const pdfWidth = pdf.internal.pageSize.getWidth()
+		const pdfHeight = pdf.internal.pageSize.getHeight()
+		const imgWidth = canvas.width
+		const imgHeight = canvas.height
+		const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
+		pdf.addImage(imgData, "PNG", 0, 0, imgWidth * ratio, imgHeight * ratio)
+		pdf.save(`${settings.agencyName}-quote.pdf`)
 	}
 
 	return (
 		<div className="relative">
 			<div className="relative">
 				<img src="banner.jpg" alt="banner" className="w-full h-[400px] object-cover" />
-
 				<div className="absolute inset-0 bg-gradient-to-t from-white" />
 			</div>
 
@@ -59,7 +50,7 @@ export const Home = () => {
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 ">
 					<div className="">
 						<h2 className="mb-4 text-xl font-semibold">Create</h2>
-						<QuoteForm onStepsChange={handleStepsChange} />
+						<QuoteForm /> {/* onStepsChange prop is removed */}
 					</div>
 					<div>
 						<div className="flex items-center justify-between">
@@ -69,23 +60,22 @@ export const Home = () => {
 									<DownloadIcon className="size-4" />
 									<span className="ml-1">Download PDF</span>
 								</Button>
-
-								<SettingsDrawer settings={settings} setSettings={setSettings} />
+								<SettingsDrawer /> {/* settings and setSettings props are removed */}
 							</div>
 						</div>
 						<div className="p-4 border rounded-md shadow-md bg-white/40 backdrop-blur-md">
-							<QuoteTemplate steps={steps} settings={settings} />
+							<QuoteTemplate settings={settings} /> {/* steps and settings props are removed */}
 						</div>
 					</div>
 				</div>
 
-				{/* Hidden QuoteTemplate for PDF generation - captured by html2canvas */}
+				{/* Hidden QuoteTemplate for PDF generation */}
 				<div
 					style={{ position: "absolute", top: "-9999px", left: "-9999px", width: "800px" }}
 					className="py-16"
 					ref={quoteRef}
 				>
-					<QuoteTemplate steps={steps} settings={settings} />
+					<QuoteTemplate isPreview steps={steps} settings={settings} /> {/* Keep props for hidden template */}
 				</div>
 			</div>
 		</div>

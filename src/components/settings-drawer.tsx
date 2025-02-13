@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet"
 import { Input } from "@/components/ui/input"
@@ -6,10 +6,12 @@ import { Label } from "@/components/ui/label"
 import { Settings2 } from "lucide-react"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useSettingsStore } from "@/store/settingsStore" // Import settings store
 
 const CURRENCIES = ["USD", "EUR", "DZD", "GBP", "JPY", "CAD"]
 
 export interface Settings {
+	// Keep interface as it is used in store and component
 	agencyName: string
 	agencyLogo: string
 	quoteDescription: string
@@ -18,6 +20,7 @@ export interface Settings {
 }
 
 export const DEFAULT_SETTINGS: Settings = {
+	// Keep DEFAULT_SETTINGS
 	agencyName: "Your Agency Name",
 	agencyLogo: "/placeholder.svg",
 	quoteDescription: "Professional Services Quote",
@@ -25,24 +28,23 @@ export const DEFAULT_SETTINGS: Settings = {
 	footerText: "Thank you for considering us for your project. Please contact us if you have any questions.",
 }
 
-interface SettingsDrawerProps {
-	settings: Settings
-	setSettings: React.Dispatch<React.SetStateAction<Settings>>
-}
-
-export const SettingsDrawer = ({ settings, setSettings }: SettingsDrawerProps) => {
+export const SettingsDrawer = () => {
+	// Removed props
 	const [open, setOpen] = useState<boolean>(false)
+	const settings = useSettingsStore((state) => state.settings)
+	const setSettingsStore = useSettingsStore((state) => state.setSettings)
+	const updateSetting = useSettingsStore((state) => state.updateSetting)
 
 	// On mount, load any saved settings from local storage.
 	useEffect(() => {
 		const storedSettings = localStorage.getItem("quoteSettings")
 		if (storedSettings) {
-			setSettings(JSON.parse(storedSettings))
+			setSettingsStore(JSON.parse(storedSettings))
 		}
-	}, [])
+	}, [setSettingsStore])
 
 	const handleChange = (field: keyof Settings, value: string) => {
-		setSettings((prev) => ({ ...prev, [field]: value }))
+		updateSetting(field, value) // Use updateSetting from store
 	}
 
 	const handleSave = () => {

@@ -5,87 +5,39 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "./ui/switch"
 import { PlusIcon, Trash2Icon } from "lucide-react"
 import { SubstepItem } from "./sub-step-Item"
+import { Step, Substep, useQuoteStore } from "@/store/quoteStore"
 
-/** Types for a substep and a step */
-export interface Substep {
-	id: number
-	description: string
-	price: number
-}
+export const StepItem = ({ step, index }: { step: Step; index: number }) => {
+	const stepFromStore = useQuoteStore((state) => state.steps.find((s) => s.id === step.id))
 
-export interface Step {
-	id: number
-	description: string
-	price: number
-	useSubstepPricing: boolean
-	substeps: Substep[]
-}
+	const updateStep = useQuoteStore((state) => state.updateStep)
+	const updateSubstepsForStep = useQuoteStore((state) => state.updateSubstepsForStep)
+	const updateUseSubstepPricingForStep = useQuoteStore((state) => state.updateUseSubstepPricingForStep)
+	const removeStepFromStore = useQuoteStore((state) => state.removeStep)
 
-interface StepItemProps {
-	step: Step
-	index: number
-	onRemove: () => void
-	onStepChange: (field: keyof Step, value: any) => void
-	onSubstepChange: (substeps: Substep[]) => void
-	onUseSubstepPricingChange?: (useSubstepPricing: boolean) => void
-}
-
-export const StepItem = ({
-	step,
-	index,
-	onRemove,
-	onStepChange,
-	onSubstepChange,
-	onUseSubstepPricingChange,
-}: StepItemProps) => {
-	const [useSubstepPricing, setUseSubstepPricing] = useState<boolean>(step.useSubstepPricing)
-	const [substeps, setSubsteps] = useState<Substep[]>(step.substeps)
-	const [calculatedStepPrice, setCalculatedStepPrice] = useState<number>(0)
+	// Use local state only for toggling switch if necessary
+	const [useSubstepPricing, setUseSubstepPricing] = useState<boolean>(stepFromStore?.useSubstepPricing || false)
+	const substeps = stepFromStore?.substeps || []
+	const calculatedStepPrice = substeps.reduce((sum, sub) => sum + (sub.price || 0), 0)
 
 	useEffect(() => {
-		// Calculate the total of the substep prices
-		const substepTotal = substeps.reduce((sum, substep) => sum + (substep.price || 0), 0)
-		setCalculatedStepPrice(substepTotal)
-
-		// Only update the parent's step price if we are using substep pricing and the value has changed
-		if (useSubstepPricing && step.price !== substepTotal) {
-			onStepChange("price", substepTotal)
+		// If substep pricing is active, update the step price
+		if (useSubstepPricing && stepFromStore && stepFromStore.price !== calculatedStepPrice) {
+			updateStep(step.id, "price", calculatedStepPrice)
 		}
-		// Update the parent with the current substeps (if needed)
-		onSubstepChange(substeps)
-
-		// NOTE: We intentionally omit onStepChange and onSubstepChange from the dependency array
-		// because their identities change on every render and cause an infinite loop.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [substeps, useSubstepPricing])
+	}, [substeps, useSubstepPricing, calculatedStepPrice, step.id, updateStep, stepFromStore])
 
 	const handleAddSubstep = () => {
 		const newSubstep: Substep = { id: Date.now(), description: "", price: 0 }
 		const updatedSubsteps = [...substeps, newSubstep]
-		setSubsteps(updatedSubsteps)
-		onSubstepChange(updatedSubsteps)
-	}
-
-	const handleRemoveSubstep = (id: number) => {
-		const updatedSubsteps = substeps.filter((substep) => substep.id !== id)
-		setSubsteps(updatedSubsteps)
-		onSubstepChange(updatedSubsteps)
-	}
-
-	const handleSubstepChange = (id: number, field: keyof Substep, value: any) => {
-		const updatedSubsteps = substeps.map((substep) => (substep.id === id ? { ...substep, [field]: value } : substep))
-		setSubsteps(updatedSubsteps)
-		onSubstepChange(updatedSubsteps)
+		updateSubstepsForStep(step.id, updatedSubsteps)
 	}
 
 	const handleUseSubstepPricingChange = (checked: boolean) => {
 		setUseSubstepPricing(checked)
-		onStepChange("useSubstepPricing", checked)
-		if (onUseSubstepPricingChange) {
-			onUseSubstepPricingChange(checked)
-		}
+		updateUseSubstepPricingForStep(step.id, checked)
 		if (checked) {
-			onStepChange("price", calculatedStepPrice)
+			updateStep(step.id, "price", calculatedStepPrice)
 		}
 	}
 
@@ -98,8 +50,8 @@ export const StepItem = ({
 						type="text"
 						id={`step-description-${step.id}`}
 						placeholder="Description of step"
-						value={step.description}
-						onChange={(e) => onStepChange("description", e.target.value)}
+						value={stepFromStore?.description || ""}
+						onChange={(e) => updateStep(step.id, "description", e.target.value)}
 					/>
 				</div>
 				<div>
@@ -118,19 +70,19 @@ export const StepItem = ({
 							type="number"
 							id={`step-price-${step.id}`}
 							placeholder="Price"
-							value={step.price}
-							onChange={(e) => onStepChange("price", parseFloat(e.target.value))}
+							value={stepFromStore?.price || 0}
+							onChange={(e) => updateStep(step.id, "price", parseFloat(e.target.value))}
 						/>
 					)}
 				</div>
 				<div className="flex items-end justify-end">
-					<Button variant="ghost" size="icon" onClick={onRemove}>
+					<Button variant="ghost" size="icon" onClick={() => removeStepFromStore(step.id)}>
 						<Trash2Icon className="mr-1 size-4 text-rose-500" />
 					</Button>
 				</div>
 			</div>
 
-			{step.substeps.length > 0 && (
+			{substeps.length > 0 && (
 				<div className="flex items-center pt-2 pb-1 pl-4 border-black border-l-1">
 					<Switch
 						id={`use-substep-pricing-${step.id}`}
@@ -145,13 +97,7 @@ export const StepItem = ({
 
 			<div className="">
 				{substeps.map((substep, subIndex) => (
-					<SubstepItem
-						key={substep.id}
-						substep={substep}
-						index={subIndex}
-						onRemove={() => handleRemoveSubstep(substep.id)}
-						onSubstepChange={(field, value) => handleSubstepChange(substep.id, field, value)}
-					/>
+					<SubstepItem key={substep.id} substep={substep} index={subIndex} />
 				))}
 
 				<Button onClick={handleAddSubstep} variant="outline" size="sm" className="mt-1 border-dashed">
