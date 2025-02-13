@@ -4,7 +4,8 @@ import { useQuoteStore } from "@/store/quoteStore"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Label } from "./ui/label"
 import { Input } from "./ui/input"
-import { Textarea } from "./ui/textarea"
+import ReactQuill from "react-quill"
+import "react-quill/dist/quill.snow.css"
 
 export const QuoteForm = () => {
 	const steps = useQuoteStore((state) => state.steps)
@@ -68,7 +69,7 @@ export const QuoteForm = () => {
 					<AccordionItem className="border-none" value="item-1">
 						<AccordionTrigger className="px-2 py-1 font-semibold hover:no-underline">Note</AccordionTrigger>
 						<AccordionContent className="px-2 pt-4 space-y-2">
-							<Textarea value={note} onChange={(e) => updateNote(e.target.value)} />
+							<ReactQuill value={note} theme="snow" onChange={updateNote} />
 						</AccordionContent>
 					</AccordionItem>
 				</Accordion>

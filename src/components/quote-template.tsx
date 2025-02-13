@@ -1,6 +1,7 @@
 import React from "react"
 import { Step, useQuoteStore } from "@/store/quoteStore"
 import { useSettingsStore } from "@/store/settingsStore"
+import { isEmptyHtml } from "@/utils/is-empty-html"
 
 export const formatCurrency = (amount: number, currency: string): string => {
 	return new Intl.NumberFormat("en-US", {
@@ -60,7 +61,12 @@ export const QuoteTemplate = ({ isPreview = false }: QuoteTemplateProps) => {
 				Total: {formatCurrency(totalAmount, settings?.currency || "USD")}
 			</div>
 
-			{!!(note.length > 0) && <div className="p-4 rounded-md bg-muted-foreground/10">{note}</div>}
+			{!isEmptyHtml(note) && (
+				<div
+					className="p-4 prose-sm prose rounded-md max-w-7xl prose-li:my-0 prose-p:my-0 prose-headings:my-0 prose-ul:my-0 prose-ol:my-0 bg-muted-foreground/10"
+					dangerouslySetInnerHTML={{ __html: note }}
+				/>
+			)}
 
 			<footer className="pt-4 mt-8 text-sm text-gray-600 border-t">
 				<p>{settings?.footerText}</p>
