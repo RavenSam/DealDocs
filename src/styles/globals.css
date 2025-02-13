@@ -1,6 +1,4 @@
 @import url("transitions.css");
-@import url("editor.css");
-@import url("flow.css");
 
 @tailwind base;
 @tailwind components;
@@ -87,7 +85,7 @@ body,
 	}
 
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-background text-foreground font-poppins;
 	}
 
 	.error-field input {
@@ -95,110 +93,155 @@ body,
 	}
 }
 
-/* ======================================= */
-
-/* ======================================= */
-
-.Jan ~ .Jan,
-.Feb ~ .Feb,
-.Mar ~ .Mar,
-.Apr ~ .Apr,
-.May ~ .May,
-.Jun ~ .Jun,
-.Jul ~ .Jul,
-.Aug ~ .Aug,
-.Sep ~ .Sep,
-.Oct ~ .Oct,
-.Nov ~ .Nov,
-.Dec ~ .Dec {
-	visibility: hidden;
+/* Poppins - Thin (100) */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 100;
+	src: url("/fonts/Poppins-Thin.ttf") format("truetype");
+	font-display: swap;
 }
 
-.animate-fadeInUp {
-	animation: 1s fadeInUp;
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 100;
+	src: url("/fonts/Poppins-ThinItalic.ttf") format("truetype");
+	font-display: swap;
 }
 
-@keyframes fadeInUp {
-	0% {
-		transform: translateY(100%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0%);
-		opacity: 1;
-	}
+/* Poppins - Extra Light (200) */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 200;
+	src: url("/fonts/Poppins-ExtraLight.ttf") format("truetype");
+	font-display: swap;
 }
 
-.animate-gradient {
-	background-size: 200%;
-	-webkit-animation: animatedgradient 6s ease infinite alternate;
-	-moz-animation: animatedgradient 6s ease infinite alternate;
-	animation: animatedgradient 6s ease infinite alternate;
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 200;
+	src: url("/fonts/Poppins-ExtraLightItalic.ttf") format("truetype");
+	font-display: swap;
 }
 
-@keyframes animatedgradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+/* Poppins - Light (300) */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 300;
+	src: url("/fonts/Poppins-Light.ttf") format("truetype");
+	font-display: swap;
 }
 
-.btn-glow {
-	@apply relative z-0;
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 300;
+	src: url("/fonts/Poppins-LightItalic.ttf") format("truetype");
+	font-display: swap;
 }
 
-.btn-glow::before {
-	content: "";
-	background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7e00ff, #ff00c8, #ff0000);
-	filter: blur(5px);
-	position: absolute;
-	top: -4px;
-	left: -4px;
-	width: calc(100% + 8px);
-	height: calc(100% + 8px);
-	border-radius: calc(var(--radius) - 2px);
-	background-size: 400%;
-	z-index: -1;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-	animation: glowEffect 10s linear infinite;
+/* Poppins - Regular (400) - Already Provided in previous example */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 400;
+	src: url("/fonts/Poppins-Regular.ttf") format("truetype");
+	font-display: swap;
 }
 
-.btn-glow:hover::before {
-	opacity: 1;
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 400;
+	src: url("/fonts/Poppins-Italic.ttf") format("truetype"); /* Note: Just "Italic" is often used for Regular Italic */
+	font-display: swap;
 }
 
-.btn-glow::after {
-	content: "";
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: hsl(var(--primary));
-	top: 0;
-	left: 0;
-	border-radius: calc(var(--radius) - 2px);
-	z-index: -1;
+/* Poppins - Medium (500) */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 500;
+	src: url("/fonts/Poppins-Medium.ttf") format("truetype");
+	font-display: swap;
 }
 
-@keyframes glowEffect {
-	0% {
-		background-position: 0 0;
-	}
-	100% {
-		background-position: 400% 0;
-	}
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 500;
+	src: url("/fonts/Poppins-MediumItalic.ttf") format("truetype");
+	font-display: swap;
 }
 
-.border-fading-right {
-	background:
-		linear-gradient(hsl(var(--background)), hsl(var(--background))) padding-box,
-		radial-gradient(circle at left center, hsl(var(--primary)), transparent 90%) border-box;
-	border-width: 1.5px;
-	border-color: transparent;
-	border-style: solid;
+/* Poppins - SemiBold (600) */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 600;
+	src: url("/fonts/Poppins-SemiBold.ttf") format("truetype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 600;
+	src: url("/fonts/Poppins-SemiBoldItalic.ttf") format("truetype");
+	font-display: swap;
+}
+
+/* Poppins - Bold (700) - Already Provided in previous example */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 700;
+	src: url("/fonts/Poppins-Bold.ttf") format("truetype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 700;
+	src: url("/fonts/Poppins-BoldItalic.ttf") format("truetype");
+	font-display: swap;
+}
+
+/* Poppins - ExtraBold (800) */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 800;
+	src: url("/fonts/Poppins-ExtraBold.ttf") format("truetype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 800;
+	src: url("/fonts/Poppins-ExtraBoldItalic.ttf") format("truetype");
+	font-display: swap;
+}
+
+/* Poppins - Black (900) - Already Provided in previous example */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 900;
+	src: url("/fonts/Poppins-Black.ttf") format("truetype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: italic;
+	font-weight: 900;
+	src: url("/fonts/Poppins-BlackItalic.ttf") format("truetype");
+	font-display: swap;
 }

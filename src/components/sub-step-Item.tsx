@@ -36,6 +36,7 @@ export const SubstepItem = ({ substep, index }: { substep: Substep; index: numbe
 					placeholder="Substep description"
 					value={substep.description}
 					onChange={(e) => handleSubstepChange("description", e.target.value)}
+					autoFocus
 				/>
 			</div>
 			<div>

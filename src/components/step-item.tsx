@@ -59,6 +59,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 						placeholder="Description of step"
 						value={stepFromStore?.description || ""}
 						onChange={(e) => updateStep(step.id, "description", e.target.value)}
+						autoFocus
 					/>
 				</div>
 				<div>

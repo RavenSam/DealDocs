@@ -14,30 +14,30 @@ export const QuoteTemplate = () => {
 	const totalAmount = (steps || []).reduce((sum, item) => sum + item.price, 0)
 
 	return (
-		<div className="max-w-2xl p-6 mx-auto font-sans leading-relaxed">
+		<div className="max-w-2xl p-6 mx-auto leading-relaxed font-poppins">
 			<header className="grid grid-cols-2 mb-4">
-				<div className="flex items-center space-x-4">
+				<div className="flex items-center space-x-2">
 					<img src={settings.agencyLogo || "/placeholder.svg"} alt={`Logo`} className="h-20" crossOrigin="anonymous" />
 					<div>
-						<h1 className="text-2xl font-bold">{settings?.agencyName}</h1>
+						<h1 className="text-xl font-bold">{settings?.agencyName}</h1>
 						<p className="text-sm text-muted-foreground">{settings?.quoteDescription}</p>
 					</div>
 				</div>
 
-				<div className="flex flex-col text-right">
+				<div className="flex flex-col text-sm text-right">
 					<span>{settings.name}</span>
 					<span>{settings.agencyAddress}</span>
 					<span>{settings.agencyEmail}</span>
 				</div>
 			</header>
 			<div className="mb-6">
-				<div className="flex items-center px-2 space-x-2 font-medium rounded-md bg-gray-500/10">
+				<div className="flex items-center px-2 space-x-2 text-sm font-medium rounded-md bg-gray-500/10">
 					<span className="">{new Date().toLocaleDateString()}</span>
 					<span>•</span>
 					<span className="">{quoteId}</span>
 				</div>
 
-				<div className="flex flex-col text-right">
+				<div className="flex flex-col text-sm text-right">
 					<h2 className="font-semibold text-muted-foreground">Business Quote For</h2>
 					<span>{clientInfo.clientName}</span>
 					<span>{clientInfo.clientAddress}</span>
@@ -74,7 +74,7 @@ const QuoteTable = ({ steps, currency }: QuoteTableProps) => {
 	return (
 		<table className="w-full mb-8 border-collapse">
 			<thead>
-				<tr className="border-b border-black">
+				<tr className="text-sm border-b border-black">
 					<th className="p-2 text-left border-b border-muted-foreground">Service Description</th>
 					<th className="p-2 text-right border-b border-muted-foreground">Price</th>
 				</tr>

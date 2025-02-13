@@ -1,8 +1,0 @@
-.react-flow__edge-path {
-  stroke: hsl(var(--muted-foreground)) !important;
-  stroke-width: 3 !important;
-}
-
-.selected .react-flow__edge-path {
-  stroke: hsl(var(--foreground)) !important;
-}
