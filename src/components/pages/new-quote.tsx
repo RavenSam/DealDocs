@@ -6,14 +6,12 @@ import { Button } from "@/components/ui/button"
 import { QuoteTemplate } from "@/components/quote-template"
 import { DownloadIcon } from "lucide-react"
 import { SettingsDrawer } from "@/components/settings-drawer"
-import { useQuoteStore } from "@/store/quoteStore"
 import { useSettingsStore } from "@/store/settingsStore"
 
 export const NewQuote = () => {
 	const quoteRef = useRef<HTMLDivElement>(null)
-	const steps = useQuoteStore((state) => state.steps)
 	const settings = useSettingsStore((state) => state.settings)
-	const setSettings = useSettingsStore((state) => state.setSettings) // Use the direct setSettings action from store
+	const setSettings = useSettingsStore((state) => state.setSettings)
 
 	// Load settings from localStorage on mount (using store's setSettings)
 	useEffect(() => {
@@ -50,7 +48,7 @@ export const NewQuote = () => {
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 ">
 					<div className="">
 						<h2 className="mb-4 text-xl font-semibold">Create</h2>
-						<QuoteForm /> {/* onStepsChange prop is removed */}
+						<QuoteForm />
 					</div>
 					<div>
 						<div className="flex items-center justify-between">
@@ -60,11 +58,11 @@ export const NewQuote = () => {
 									<DownloadIcon className="size-4" />
 									<span className="ml-1">Download PDF</span>
 								</Button>
-								<SettingsDrawer /> {/* settings and setSettings props are removed */}
+								<SettingsDrawer />
 							</div>
 						</div>
 						<div className="p-4 border rounded-md shadow-md bg-white/40 backdrop-blur-md">
-							<QuoteTemplate settings={settings} /> {/* steps and settings props are removed */}
+							<QuoteTemplate />
 						</div>
 					</div>
 				</div>
@@ -75,7 +73,7 @@ export const NewQuote = () => {
 					className="py-16"
 					ref={quoteRef}
 				>
-					<QuoteTemplate isPreview steps={steps} settings={settings} /> {/* Keep props for hidden template */}
+					<QuoteTemplate isPreview />
 				</div>
 			</div>
 		</div>
