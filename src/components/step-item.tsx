@@ -68,7 +68,10 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 				</div>
 				<div>
 					<Label htmlFor={`step-price-${step.id}`}>
-						{t("stepItem.priceLabel")} {useSubstepPricing ? `(${t("stepItem.substepTotal")})` : ""}
+						{t("stepItem.priceLabel")}{" "}
+						<span className="text-xs text-muted-foreground">
+							{useSubstepPricing && `(${t("stepItem.substepTotal")})`}
+						</span>
 					</Label>
 
 					<Input
@@ -110,7 +113,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 					onClick={handleAddSubstep}
 					variant="outline"
 					size="sm"
-					className="mt-1 border-dashed border-muted-foreground"
+					className="mt-1 text-xs border-dashed border-muted-foreground"
 				>
 					<PlusIcon className="mr-1 size-4" />
 					{t("stepItem.addSubstepButton")}
