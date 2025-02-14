@@ -4,19 +4,21 @@
 
 DealDocs is a desktop application, built with **Tauri** and **React**, designed to simplify and streamline the process of creating project quotes. It allows users to quickly generate professional-looking PDF quotes by defining project steps and their associated pricing. The application focuses on simplicity and ease of use, providing a user-friendly interface to create quotes efficiently.
 
-## Download the App
-
-You can download the pre-built DealDocs desktop application from the [GitHub Releases page]. Download the appropriate package for your system.
+![screenshot](https://raw.githubusercontent.com/RavenSam/DealDocs/refs/heads/main/public/screenshot.png)
 
 ## Features
 
 This application includes the following core features:
 
-- \*\*Step-Based Quote Creation
-- \*\*Pricing Input
-- \*\*Dynamic Quote Preview
-- \*\*PDF Quote Download
-- \*\*Internationalization (En/FR)
+- [x] Step-Based Quote Creation
+- [x] Pricing Input
+- [x] Dynamic Quote Preview
+- [x] PDF Quote Download
+- [x] Internationalization (En/FR)
+
+## Download the App
+
+You can download the pre-built DealDocs desktop application from the [GitHub Releases page]. Download the appropriate package for your system.
 
 ## Tech Stack
 
