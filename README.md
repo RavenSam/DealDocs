@@ -15,6 +15,8 @@ This application includes the following core features:
 - [x] Dynamic Quote Preview
 - [x] PDF Quote Download
 - [x] Internationalization (En/FR)
+- [ ] Save quotes to a database
+- [ ] Drag & Drop steps
 
 ## Download the App
 
