@@ -65,9 +65,11 @@ export const QuoteTemplate = () => {
 				/>
 			)}
 
-			<footer className="pt-4 mt-8 text-sm text-gray-600 border-t">
-				<p>{settings?.footerText}</p>
-			</footer>
+			{settings.footerText.length > 0 && (
+				<footer className="pt-4 mt-8 text-sm text-gray-600 border-t">
+					<p>{settings.footerText}</p>
+				</footer>
+			)}
 		</div>
 	)
 }
