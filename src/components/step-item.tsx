@@ -10,21 +10,19 @@ import { useTranslation } from "react-i18next"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 
 export const StepItem = ({ step, index }: { step: Step; index: number }) => {
+	const { t } = useTranslation()
 	const stepFromStore = useQuoteStore((state) => state.steps.find((s) => s.id === step.id))
+	const [useSubstepPricing, setUseSubstepPricing] = useState(stepFromStore?.useSubstepPricing || false)
 
 	const updateStep = useQuoteStore((state) => state.updateStep)
 	const updateSubstepsForStep = useQuoteStore((state) => state.updateSubstepsForStep)
 	const updateUseSubstepPricingForStep = useQuoteStore((state) => state.updateUseSubstepPricingForStep)
 	const removeStepFromStore = useQuoteStore((state) => state.removeStep)
 
-	// Use local state only for toggling switch if necessary
-	const [useSubstepPricing, setUseSubstepPricing] = useState<boolean>(stepFromStore?.useSubstepPricing || false)
 	const substeps = stepFromStore?.substeps || []
 	const calculatedStepPrice = substeps.reduce((sum, sub) => sum + (sub.price || 0), 0)
-	const { t } = useTranslation()
 
 	useEffect(() => {
-		// If substep pricing is active, update the step price
 		if (useSubstepPricing && stepFromStore && stepFromStore.price !== calculatedStepPrice) {
 			updateStep(step.id, "price", calculatedStepPrice)
 		}
@@ -54,13 +52,17 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 	const [parent] = useAutoAnimate()
 
 	return (
-		<div className="p-4 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
-			<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+		<div className="relative p-4 pl-6 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
+			<div className="absolute flex items-center justify-center rotate-45 rounded-md left-[9px] z-10 top-3 size-8 bg-primary">
+				<span className="text-white -rotate-45">{index + 1}</span>
+			</div>
+			<div className="grid grid-cols-1 gap-2 pl-6 border-l-2 md:grid-cols-[5fr_3fr_1fr] border-primary">
 				<div>
 					<Label htmlFor={`step-description-${step.id}`}>
 						{t("stepItem.stepLabel")} {index + 1}
 					</Label>
 					<Input
+						className="mt-1 -ml-2"
 						type="text"
 						id={`step-description-${step.id}`}
 						placeholder={t("stepItem.stepDescriptionPlaceholder")}
@@ -69,7 +71,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 						autoFocus
 					/>
 				</div>
-				<div>
+				<div className="-ml-2">
 					<Label htmlFor={`step-price-${step.id}`}>
 						{t("stepItem.priceLabel")}{" "}
 						<span className="text-xs text-muted-foreground">
@@ -78,6 +80,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 					</Label>
 
 					<Input
+						className="mt-1"
 						type="number"
 						id={`step-price-${step.id}`}
 						placeholder={t("stepItem.pricePlaceholder")}
@@ -96,13 +99,16 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 
 			<div ref={parent} className="">
 				{substeps.length > 0 && (
-					<div className="flex items-center pt-2 pb-1 pl-4 border-l-2 border-black">
+					<div className="flex items-center pt-2 pb-1 pl-4 border-l-2 border-primary">
 						<Switch
 							id={`use-substep-pricing-${step.id}`}
 							checked={useSubstepPricing}
 							onCheckedChange={handleUseSubstepPricingChange}
 						/>
-						<Label htmlFor={`use-substep-pricing-${step.id}`} className="ml-2 text-sm cursor-pointer">
+						<Label
+							htmlFor={`use-substep-pricing-${step.id}`}
+							className="ml-2 text-xs cursor-pointer text-muted-foreground"
+						>
 							{t("stepItem.calculateStepPrice")}
 						</Label>
 					</div>

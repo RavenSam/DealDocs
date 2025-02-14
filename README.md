@@ -1,7 +1,60 @@
-# Tauri + React + Typescript
+# DealDocs - Streamlined Quote Generator Desktop App
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+## Project Description
 
-## Recommended IDE Setup
+DealDocs is a desktop application, built with **Tauri** and **React**, designed to simplify and streamline the process of creating project quotes. It allows users to quickly generate professional-looking PDF quotes by defining project steps and their associated pricing. The application focuses on simplicity and ease of use, providing a user-friendly interface to create quotes efficiently.
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## Download the App
+
+You can download the pre-built DealDocs desktop application from the [GitHub Releases page]. Download the appropriate package for your system.
+
+## Features
+
+This application includes the following core features:
+
+- \*\*Step-Based Quote Creation
+- \*\*Pricing Input
+- \*\*Dynamic Quote Preview
+- \*\*PDF Quote Download
+- \*\*Internationalization (En/FR)
+
+## Tech Stack
+
+- **Frontend:** [React](https://reactjs.org/)
+- **Desktop Framework:** [Tauri v2](https://tauri.app)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Package Manager:** [pnpm](https://pnpm.io/)
+- **Build Tooling:** [Vite](https://vitejs.dev/)
+
+## Setup and Installation (For Developers)
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/RavenSam/DealDocs.git
+    cd DealDocs
+    ```
+
+2.  **Install dependencies using pnpm:**
+
+    ```bash
+    pnpm install
+    ```
+
+3.  **Install [Tauri v2](https://tauri.app)**
+    Follow the link to get started for your respective operating system
+4.  **Run the application in development mode:**
+
+    ```bash
+    pnpm tauri dev
+    ```
+
+    This command will likely start the development server and open the desktop application.
+
+5.  **Building the application for distribution:**
+
+    ```bash
+    pnpm tauri build
+    ```
+
+    This command will build distributable packages for your target operating systems in the `src-tauri/target/release/bundle` directory.
