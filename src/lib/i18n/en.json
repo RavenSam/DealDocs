@@ -40,6 +40,10 @@
 	},
 	"settingsDrawer": {
 		"sheetTitle": "Quote Settings",
+		"agencySettingsTab": "Agency Settings",
+		"preferenceSettingsTab": "Preferences",
+		"languageSettingsLabel": "Language",
+		"languageSettingsDescription": "Set the application display language.",
 		"agencyNameLabel": "Agency Name",
 		"agencyLogoLabel": "Agency Logo URL",
 		"nameLabel": "Name",

@@ -9,7 +9,6 @@ import { SettingsDrawer } from "@/components/settings-drawer"
 import { useSettingsStore } from "@/store/settingsStore"
 import { useQuoteStore } from "@/store/quoteStore"
 import { useTranslation } from "react-i18next"
-import { LanguageSwitcher } from "@/components/el/language-switcher"
 
 export const NewQuote = () => {
 	const quoteRef = useRef<HTMLDivElement>(null)
@@ -63,7 +62,6 @@ export const NewQuote = () => {
 						<div className="flex items-center justify-between">
 							<h2 className="mb-4 text-xl font-semibold">{t("newQuote.previewTitle")}</h2>
 							<div className="flex items-center -mt-2 space-x-2">
-								<LanguageSwitcher />
 								<Button onClick={downloadPdf} variant="outline" disabled={downloading}>
 									{downloading ? <Loader2Icon className="size-4 animate-spin" /> : <DownloadIcon className="size-4" />}
 									<span className="ml-1">

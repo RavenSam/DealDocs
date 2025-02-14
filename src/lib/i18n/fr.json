@@ -40,6 +40,10 @@
 	},
 	"settingsDrawer": {
 		"sheetTitle": "Paramètres du devis",
+		"agencySettingsTab": "Paramètres de l'agence",
+		"preferenceSettingsTab": "Préférences",
+		"languageSettingsLabel": "Langue",
+		"languageSettingsDescription": "Définir la langue d'affichage de l'application.",
 		"agencyNameLabel": "Nom de l'agence",
 		"agencyLogoLabel": "URL du logo de l'agence",
 		"nameLabel": "Nom",
