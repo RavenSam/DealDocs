@@ -20,7 +20,7 @@ This application includes the following core features:
 
 ## Download the App
 
-You can download the pre-built DealDocs desktop application from the [GitHub Releases page]. Download the appropriate package for your system.
+You can download the pre-built DealDocs desktop application from the [GitHub Releases page](https://github.com/RavenSam/DealDocs/releases/latest). Download the appropriate package for your system.
 
 ## Tech Stack
 
