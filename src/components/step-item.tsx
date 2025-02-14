@@ -7,6 +7,7 @@ import { PlusIcon, Trash2Icon } from "lucide-react"
 import { SubstepItem } from "@/components/sub-step-Item"
 import { Step, Substep, useQuoteStore } from "@/store/quoteStore"
 import { useTranslation } from "react-i18next"
+import { AnimatePresence, motion } from "motion/react"
 
 export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 	const stepFromStore = useQuoteStore((state) => state.steps.find((s) => s.id === step.id))
@@ -52,7 +53,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 
 	return (
 		<div className="p-4 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
-			<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+			<motion.div layout className="grid grid-cols-1 gap-4 md:grid-cols-3">
 				<div>
 					<Label htmlFor={`step-description-${step.id}`}>
 						{t("stepItem.stepLabel")} {index + 1}
@@ -89,10 +90,10 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 						<Trash2Icon className="mr-1 size-4 text-rose-500" />
 					</Button>
 				</div>
-			</div>
+			</motion.div>
 
 			{substeps.length > 0 && (
-				<div className="flex items-center pt-2 pb-1 pl-4 border-l-2 border-black">
+				<motion.div layout className="flex items-center pt-2 pb-1 pl-4 border-l-2 border-black">
 					<Switch
 						id={`use-substep-pricing-${step.id}`}
 						checked={useSubstepPricing}
@@ -101,23 +102,38 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 					<Label htmlFor={`use-substep-pricing-${step.id}`} className="ml-2 text-sm cursor-pointer">
 						{t("stepItem.calculateStepPrice")}
 					</Label>
-				</div>
+				</motion.div>
 			)}
 
 			<div className="">
-				{substeps.map((substep, subIndex) => (
-					<SubstepItem key={substep.id} substep={substep} index={subIndex} />
-				))}
+				<motion.div layout>
+					<AnimatePresence>
+						{substeps.map((substep, subIndex) => (
+							<motion.div
+								key={substep.id}
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0, transition: { type: "tween", ease: "easeOut", duration: 0.2 } }}
+								transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
+								layout
+							>
+								<SubstepItem substep={substep} index={subIndex} />
+							</motion.div>
+						))}
+					</AnimatePresence>
+				</motion.div>
 
-				<Button
-					onClick={handleAddSubstep}
-					variant="outline"
-					size="sm"
-					className="mt-1 text-xs border-dashed border-muted-foreground"
-				>
-					<PlusIcon className="mr-1 size-4" />
-					{t("stepItem.addSubstepButton")}
-				</Button>
+				<motion.div layout>
+					<Button
+						onClick={handleAddSubstep}
+						variant="outline"
+						size="sm"
+						className="mt-1 text-xs border-dashed border-muted-foreground"
+					>
+						<PlusIcon className="mr-1 size-4" />
+						{t("stepItem.addSubstepButton")}
+					</Button>
+				</motion.div>
 			</div>
 		</div>
 	)

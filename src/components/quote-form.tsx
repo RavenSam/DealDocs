@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import ReactQuill from "react-quill"
 import { useTranslation } from "react-i18next"
+import { motion, AnimatePresence } from "motion/react"
 
 import "react-quill/dist/quill.snow.css"
 
@@ -20,20 +21,33 @@ export const QuoteForm = () => {
 
 	return (
 		<div>
-			<div>
-				{steps.map((step, index) => (
-					<StepItem key={step.id} step={step} index={index} />
-				))}
-			</div>
+			<motion.div layout>
+				<AnimatePresence>
+					{steps.map((step, index) => (
+						<motion.div
+							key={step.id}
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -20, transition: { type: "tween", ease: "easeOut", duration: 0.2 } }}
+							transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
+							layout
+						>
+							<StepItem step={step} index={index} />
+						</motion.div>
+					))}
+				</AnimatePresence>
+			</motion.div>
 
-			<Button
-				onClick={addStep}
-				size={"lg"}
-				variant={"outline"}
-				className="w-full mt-2 font-bold tracking-wider border-dashed border-muted-foreground"
-			>
-				{t("quoteForm.addStepButton")}
-			</Button>
+			<motion.div layout>
+				<Button
+					onClick={addStep}
+					size="lg"
+					variant="outline"
+					className="w-full mt-2 font-bold tracking-wider border-dashed border-muted-foreground"
+				>
+					{t("quoteForm.addStepButton")}
+				</Button>
+			</motion.div>
 
 			<div className="p-2 mt-10 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
 				<Accordion type="single" collapsible>
