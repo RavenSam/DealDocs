@@ -32,17 +32,7 @@ export const SettingsDrawer = () => {
 		{
 			id: 1,
 			label: t("settingsDrawer.preferenceSettingsTab"),
-			content: (
-				<div className="mt-8 space-y-4">
-					<div className="flex justify-between">
-						<div className="max-w-[40%]">
-							<Label>{t("settingsDrawer.languageSettingsLabel")}</Label>
-							<p className="text-xs text-muted-foreground">{t("settingsDrawer.languageSettingsDescription")}</p>
-						</div>
-						<LanguageSwitcher />
-					</div>
-				</div>
-			),
+			content: <PreferenceSettings />,
 		},
 	]
 
@@ -53,10 +43,26 @@ export const SettingsDrawer = () => {
 					<Settings2 className="size-5" />
 				</Button>
 			</SheetTrigger>
-			<SheetContent className="md:max-w-xl">
+			<SheetContent className="md:max-w-xl" side={"left"}>
 				<DirectionAwareTabs tabs={tabs} />
 			</SheetContent>
 		</Sheet>
+	)
+}
+
+export const PreferenceSettings = () => {
+	const { t } = useTranslation()
+
+	return (
+		<div className="mt-8 space-y-4">
+			<div className="flex justify-between">
+				<div className="max-w-[40%]">
+					<Label>{t("settingsDrawer.languageSettingsLabel")}</Label>
+					<p className="text-xs text-muted-foreground">{t("settingsDrawer.languageSettingsDescription")}</p>
+				</div>
+				<LanguageSwitcher />
+			</div>
+		</div>
 	)
 }
 
