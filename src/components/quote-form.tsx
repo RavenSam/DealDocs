@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import ReactQuill from "react-quill"
 import { useTranslation } from "react-i18next"
-import { motion, AnimatePresence } from "motion/react"
+import { useAutoAnimate } from "@formkit/auto-animate/react"
 
 import "react-quill/dist/quill.snow.css"
 
@@ -19,26 +19,15 @@ export const QuoteForm = () => {
 	const updateNote = useQuoteStore((state) => state.updateNote)
 	const { t } = useTranslation()
 
+	const [parent] = useAutoAnimate()
+
 	return (
 		<div>
-			<motion.div layout>
-				<AnimatePresence>
-					{steps.map((step, index) => (
-						<motion.div
-							key={step.id}
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -20, transition: { type: "tween", ease: "easeOut", duration: 0.2 } }}
-							transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
-							layout
-						>
-							<StepItem step={step} index={index} />
-						</motion.div>
-					))}
-				</AnimatePresence>
-			</motion.div>
+			<div ref={parent}>
+				{steps.map((step, index) => (
+					<StepItem key={step.id} step={step} index={index} />
+				))}
 
-			<motion.div layout>
 				<Button
 					onClick={addStep}
 					size="lg"
@@ -47,7 +36,7 @@ export const QuoteForm = () => {
 				>
 					{t("quoteForm.addStepButton")}
 				</Button>
-			</motion.div>
+			</div>
 
 			<div className="p-2 mt-10 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
 				<Accordion type="single" collapsible>

@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.tauri.app/config/2",
-	"productName": "dealdocs",
+	"productName": "DealDocs",
 	"version": "0.1.0",
 	"identifier": "com.dealdocs.app",
 	"build": {
@@ -12,8 +12,8 @@
 	"app": {
 		"windows": [
 			{
-				"title": "dealdocs",
-				"width": 1100,
+				"title": "DealDocs",
+				"width": 1300,
 				"height": 750
 			}
 		],
