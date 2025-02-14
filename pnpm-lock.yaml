@@ -122,6 +122,12 @@ dependencies:
   html2canvas-pro:
     specifier: ^1.5.8
     version: 1.5.8
+  i18next:
+    specifier: ^24.2.2
+    version: 24.2.2(typescript@5.6.3)
+  i18next-browser-languagedetector:
+    specifier: ^8.0.3
+    version: 8.0.3
   input-otp:
     specifier: ^1.4.1
     version: 1.4.1(react-dom@18.3.1)(react@18.3.1)
@@ -149,6 +155,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.54.2
     version: 7.54.2(react@18.3.1)
+  react-i18next:
+    specifier: ^15.4.0
+    version: 15.4.0(i18next@24.2.2)(react-dom@18.3.1)(react@18.3.1)
   react-quill:
     specifier: ^2.0.0
     version: 2.0.0(react-dom@18.3.1)(react@18.3.1)
@@ -3655,6 +3664,12 @@ packages:
     dependencies:
       function-bind: 1.1.2
 
+  /html-parse-stringify@3.0.1:
+    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
+    dependencies:
+      void-elements: 3.1.0
+    dev: false
+
   /html2canvas-pro@1.5.8:
     resolution: {integrity: sha512-bVGAU7IvhBwBlRAmX6QhekX8lsaxmYoF6zIwf/HNlHscjx+KN8jw/U4PQRYqeEVm9+m13hcS1l5ChJB9/e29Lw==}
     engines: {node: '>=16.0.0'}
@@ -3669,6 +3684,24 @@ packages:
     dependencies:
       css-line-break: 2.1.0
       text-segmentation: 1.0.3
+    dev: false
+
+  /i18next-browser-languagedetector@8.0.3:
+    resolution: {integrity: sha512-beOOLArattPBc2YZG5IXGJytdYFgUR7cS8Wd6HT4IczIoWKgmTspOQ2yasaGklelVo5seLPmnEKvLHR+E/MdWQ==}
+    dependencies:
+      '@babel/runtime': 7.26.0
+    dev: false
+
+  /i18next@24.2.2(typescript@5.6.3):
+    resolution: {integrity: sha512-NE6i86lBCKRYZa5TaUDkU5S4HFgLIEJRLr3Whf2psgaxBleQ2LC1YW1Vc+SCgkAW7VEzndT6al6+CzegSUHcTQ==}
+    peerDependencies:
+      typescript: ^5
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.26.0
+      typescript: 5.6.3
     dev: false
 
   /input-otp@1.4.1(react-dom@18.3.1)(react@18.3.1):
@@ -4109,6 +4142,26 @@ packages:
       react: ^16.8.0 || ^17 || ^18 || ^19
     dependencies:
       react: 18.3.1
+    dev: false
+
+  /react-i18next@15.4.0(i18next@24.2.2)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-Py6UkX3zV08RTvL6ZANRoBh9sL/ne6rQq79XlkHEdd82cZr2H9usbWpUNVadJntIZP2pu3M2rL1CN+5rQYfYFw==}
+    peerDependencies:
+      i18next: '>= 23.2.3'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.26.0
+      html-parse-stringify: 3.0.1
+      i18next: 24.2.2(typescript@5.6.3)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
     dev: false
 
   /react-is@16.13.1:
@@ -4590,7 +4643,6 @@ packages:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
 
   /undici-types@6.20.0:
     resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
@@ -4752,6 +4804,11 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
+
+  /void-elements@3.1.0:
+    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}

@@ -6,6 +6,7 @@ import { Switch } from "@/components/ui/switch"
 import { PlusIcon, Trash2Icon } from "lucide-react"
 import { SubstepItem } from "@/components/sub-step-Item"
 import { Step, Substep, useQuoteStore } from "@/store/quoteStore"
+import { useTranslation } from "react-i18next"
 
 export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 	const stepFromStore = useQuoteStore((state) => state.steps.find((s) => s.id === step.id))
@@ -19,6 +20,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 	const [useSubstepPricing, setUseSubstepPricing] = useState<boolean>(stepFromStore?.useSubstepPricing || false)
 	const substeps = stepFromStore?.substeps || []
 	const calculatedStepPrice = substeps.reduce((sum, sub) => sum + (sub.price || 0), 0)
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		// If substep pricing is active, update the step price
@@ -52,23 +54,27 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 		<div className="p-4 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
 				<div>
-					<Label htmlFor={`step-description-${step.id}`}>Step {index + 1}</Label>
+					<Label htmlFor={`step-description-${step.id}`}>
+						{t("stepItem.stepLabel")} {index + 1}
+					</Label>
 					<Input
 						type="text"
 						id={`step-description-${step.id}`}
-						placeholder="Description of step"
+						placeholder={t("stepItem.stepDescriptionPlaceholder")}
 						value={stepFromStore?.description || ""}
 						onChange={(e) => updateStep(step.id, "description", e.target.value)}
 						autoFocus
 					/>
 				</div>
 				<div>
-					<Label htmlFor={`step-price-${step.id}`}>Price {useSubstepPricing ? "(Substep Total)" : ""}</Label>
+					<Label htmlFor={`step-price-${step.id}`}>
+						{t("stepItem.priceLabel")} {useSubstepPricing ? `(${t("stepItem.substepTotal")})` : ""}
+					</Label>
 
 					<Input
 						type="number"
 						id={`step-price-${step.id}`}
-						placeholder="Price"
+						placeholder={t("stepItem.pricePlaceholder")}
 						onChange={(e) => updateStep(step.id, "price", parseFloat(e.target.value))}
 						value={useSubstepPricing ? calculatedStepPrice : stepFromStore?.price || 0}
 						readOnly={useSubstepPricing}
@@ -90,7 +96,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 						onCheckedChange={handleUseSubstepPricingChange}
 					/>
 					<Label htmlFor={`use-substep-pricing-${step.id}`} className="ml-2 text-sm cursor-pointer">
-						Calculate step price from substeps
+						{t("stepItem.calculateStepPrice")}
 					</Label>
 				</div>
 			)}
@@ -107,7 +113,7 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 					className="mt-1 border-dashed border-muted-foreground"
 				>
 					<PlusIcon className="mr-1 size-4" />
-					Add Substep
+					{t("stepItem.addSubstepButton")}
 				</Button>
 			</div>
 		</div>

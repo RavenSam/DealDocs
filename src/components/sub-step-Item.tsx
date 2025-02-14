@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Trash2Icon } from "lucide-react"
 import { Substep, useQuoteStore } from "@/store/quoteStore"
+import { useTranslation } from "react-i18next"
 
 export const SubstepItem = ({ substep, index }: { substep: Substep; index: number }) => {
 	const updateSubstepsForStep = useQuoteStore((state) => state.updateSubstepsForStep)
 	const steps = useQuoteStore((state) => state.steps)
+	const { t } = useTranslation()
 
 	const handleSubstepChange = (field: keyof Substep, value: any) => {
 		const stepParent = steps.find((s) => s.substeps.some((sub) => sub.id === substep.id))
@@ -29,22 +31,24 @@ export const SubstepItem = ({ substep, index }: { substep: Substep; index: numbe
 	return (
 		<div className="grid grid-cols-1 gap-2 py-1 pl-4 border-l-2 border-black md:grid-cols-3">
 			<div>
-				<Label htmlFor={`substep-description-${substep.id}`}>Substep {index + 1}</Label>
+				<Label htmlFor={`substep-description-${substep.id}`}>
+					{t("substepItem.substepLabel")} {index + 1}
+				</Label>
 				<Input
 					type="text"
 					id={`substep-description-${substep.id}`}
-					placeholder="Substep description"
+					placeholder={t("substepItem.substepDescriptionPlaceholder")}
 					value={substep.description}
 					onChange={(e) => handleSubstepChange("description", e.target.value)}
 					autoFocus
 				/>
 			</div>
 			<div>
-				<Label htmlFor={`substep-price-${substep.id}`}>Price</Label>
+				<Label htmlFor={`substep-price-${substep.id}`}>{t("substepItem.priceLabel")}</Label>
 				<Input
 					type="number"
 					id={`substep-price-${substep.id}`}
-					placeholder="Price"
+					placeholder={t("substepItem.pricePlaceholder")}
 					value={substep.price}
 					onChange={(e) => handleSubstepChange("price", parseFloat(e.target.value))}
 				/>

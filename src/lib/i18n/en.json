@@ -1,0 +1,54 @@
+{
+	"quoteForm": {
+		"addStepButton": "Add Step",
+		"aboutClientAccordion": "About client",
+		"clientNameLabel": "Client Name",
+		"clientAddressLabel": "Client Address",
+		"clientEmailLabel": "Client Email",
+		"noteAccordion": "Note"
+	},
+	"newQuote": {
+		"createTitle": "Create",
+		"previewTitle": "Preview",
+		"downloadButton": "Download PDF",
+		"downloadingStatus": "Downloading...",
+		"bannerAlt": "banner"
+	},
+	"quoteTemplate": {
+		"businessQuoteFor": "Business Quote For",
+		"total": "Total",
+		"agencyLogoAlt": "Agency Logo"
+	},
+	"quoteTable": {
+		"serviceDescription": "Service Description",
+		"price": "Price"
+	},
+	"stepItem": {
+		"stepLabel": "Step",
+		"stepDescriptionPlaceholder": "Description of step",
+		"priceLabel": "Price",
+		"substepTotal": "Substep Total",
+		"pricePlaceholder": "Price",
+		"calculateStepPrice": "Calculate step price from substeps",
+		"addSubstepButton": "Add Substep"
+	},
+	"substepItem": {
+		"substepLabel": "Substep",
+		"substepDescriptionPlaceholder": "Substep description",
+		"priceLabel": "Price",
+		"pricePlaceholder": "Price"
+	},
+	"settingsDrawer": {
+		"sheetTitle": "Quote Settings",
+		"agencyNameLabel": "Agency Name",
+		"agencyLogoLabel": "Agency Logo URL",
+		"nameLabel": "Name",
+		"agencyAddressLabel": "Agency Address",
+		"agencyEmailLabel": "Agency Email",
+		"descriptionLabel": "Description",
+		"currencyLabel": "Currency",
+		"currencyPlaceholder": "Select a currency",
+		"footerTextLabel": "Footer Text",
+		"saveButton": "Save"
+	}
+}

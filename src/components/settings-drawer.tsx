@@ -7,12 +7,14 @@ import { SaveIcon, Settings2 } from "lucide-react"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CURRENCIES, Settings, useSettingsStore } from "@/store/settingsStore"
+import { useTranslation } from "react-i18next"
 
 export const SettingsDrawer = () => {
 	const [open, setOpen] = useState<boolean>(false)
 	const settings = useSettingsStore((state) => state.settings)
 	const setSettingsStore = useSettingsStore((state) => state.setSettings)
 	const updateSetting = useSettingsStore((state) => state.updateSetting)
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		const storedSettings = localStorage.getItem("quoteSettings")
@@ -33,17 +35,17 @@ export const SettingsDrawer = () => {
 	return (
 		<Sheet open={open} onOpenChange={setOpen}>
 			<SheetTrigger asChild>
-				<Button variant="outline" size="icon" className="ml-2">
+				<Button variant="outline" size="icon">
 					<Settings2 className="size-5" />
 				</Button>
 			</SheetTrigger>
 			<SheetContent className="md:max-w-xl">
 				<SheetHeader className="border-b">
-					<SheetTitle>Quote Settings</SheetTitle>
+					<SheetTitle>{t("settingsDrawer.sheetTitle")}</SheetTitle>
 				</SheetHeader>
 				<div className="mt-4 space-y-4">
 					<div>
-						<Label htmlFor="agencyName">Agency Name</Label>
+						<Label htmlFor="agencyName">{t("settingsDrawer.agencyNameLabel")}</Label>
 						<Input
 							id="agencyName"
 							value={settings.agencyName}
@@ -51,7 +53,7 @@ export const SettingsDrawer = () => {
 						/>
 					</div>
 					<div>
-						<Label htmlFor="agencyLogo">Agency Logo URL</Label>
+						<Label htmlFor="agencyLogo">{t("settingsDrawer.agencyLogoLabel")}</Label>
 						<Input
 							id="agencyLogo"
 							value={settings.agencyLogo}
@@ -59,11 +61,11 @@ export const SettingsDrawer = () => {
 						/>
 					</div>
 					<div>
-						<Label htmlFor="Name">Name</Label>
+						<Label htmlFor="Name">{t("settingsDrawer.nameLabel")}</Label>
 						<Input id="Name" value={settings.name} onChange={(e) => handleChange("name", e.target.value)} />
 					</div>
 					<div>
-						<Label htmlFor="agencyAddress">Agency Address</Label>
+						<Label htmlFor="agencyAddress">{t("settingsDrawer.agencyAddressLabel")}</Label>
 						<Input
 							id="agencyAddress"
 							value={settings.agencyAddress}
@@ -71,7 +73,7 @@ export const SettingsDrawer = () => {
 						/>
 					</div>
 					<div>
-						<Label htmlFor="agencyEmail">Agency Email</Label>
+						<Label htmlFor="agencyEmail">{t("settingsDrawer.agencyEmailLabel")}</Label>
 						<Input
 							id="agencyEmail"
 							type="email"
@@ -80,7 +82,7 @@ export const SettingsDrawer = () => {
 						/>
 					</div>
 					<div>
-						<Label htmlFor="quoteDescription">Description</Label>
+						<Label htmlFor="quoteDescription">{t("settingsDrawer.descriptionLabel")}</Label>
 						<Input
 							id="quoteDescription"
 							value={settings.quoteDescription}
@@ -88,10 +90,10 @@ export const SettingsDrawer = () => {
 						/>
 					</div>
 					<div>
-						<Label htmlFor="currency">Currency</Label>
+						<Label htmlFor="currency">{t("settingsDrawer.currencyLabel")}</Label>
 						<Select value={settings.currency} onValueChange={(value) => handleChange("currency", value)}>
 							<SelectTrigger id="currency">
-								<SelectValue placeholder="Select a currency" />
+								<SelectValue placeholder={t("settingsDrawer.currencyPlaceholder")} />
 							</SelectTrigger>
 							<SelectContent>
 								{CURRENCIES.map((currencyObj) => (
@@ -104,7 +106,7 @@ export const SettingsDrawer = () => {
 					</div>
 
 					<div>
-						<Label htmlFor="footerText">Footer Text</Label>
+						<Label htmlFor="footerText">{t("settingsDrawer.footerTextLabel")}</Label>
 						<Textarea
 							id="footerText"
 							value={settings.footerText}
@@ -113,7 +115,7 @@ export const SettingsDrawer = () => {
 					</div>
 					<Button className="font-semibold" size={"lg"} onClick={handleSave}>
 						<SaveIcon className="mr-2 size-5" />
-						Save
+						{t("settingsDrawer.saveButton")}
 					</Button>
 				</div>
 			</SheetContent>

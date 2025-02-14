@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import ReactQuill from "react-quill"
+import { useTranslation } from "react-i18next"
 
 import "react-quill/dist/quill.snow.css"
 
@@ -15,6 +16,7 @@ export const QuoteForm = () => {
 	const clientInfo = useQuoteStore((state) => state.clientInfo)
 	const note = useQuoteStore((state) => state.note)
 	const updateNote = useQuoteStore((state) => state.updateNote)
+	const { t } = useTranslation()
 
 	return (
 		<div>
@@ -30,16 +32,18 @@ export const QuoteForm = () => {
 				variant={"outline"}
 				className="w-full mt-2 font-bold tracking-wider border-dashed border-muted-foreground"
 			>
-				Add Step
+				{t("quoteForm.addStepButton")}
 			</Button>
 
 			<div className="p-2 mt-10 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
 				<Accordion type="single" collapsible>
 					<AccordionItem className="border-none" value="item-1">
-						<AccordionTrigger className="px-2 py-1 font-semibold hover:no-underline">About client</AccordionTrigger>
+						<AccordionTrigger className="px-2 py-1 font-semibold hover:no-underline">
+							{t("quoteForm.aboutClientAccordion")}
+						</AccordionTrigger>
 						<AccordionContent className="px-2 pt-4 space-y-2">
 							<div>
-								<Label htmlFor="clientName">Client Name</Label>
+								<Label htmlFor="clientName">{t("quoteForm.clientNameLabel")}</Label>
 								<Input
 									id="clientName"
 									value={clientInfo.clientName}
@@ -48,7 +52,7 @@ export const QuoteForm = () => {
 								/>
 							</div>
 							<div>
-								<Label htmlFor="clientAddress">Client Address</Label>
+								<Label htmlFor="clientAddress">{t("quoteForm.clientAddressLabel")}</Label>{" "}
 								<Input
 									id="clientAddress"
 									value={clientInfo.clientAddress}
@@ -56,7 +60,7 @@ export const QuoteForm = () => {
 								/>
 							</div>
 							<div>
-								<Label htmlFor="clientEmail">Client Email</Label>
+								<Label htmlFor="clientEmail">{t("quoteForm.clientEmailLabel")}</Label>
 								<Input
 									id="clientEmail"
 									type="email"
@@ -72,7 +76,9 @@ export const QuoteForm = () => {
 			<div className="p-2 mt-10 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
 				<Accordion type="single" collapsible>
 					<AccordionItem className="border-none" value="item-1">
-						<AccordionTrigger className="px-2 py-1 font-semibold hover:no-underline">Note</AccordionTrigger>
+						<AccordionTrigger className="px-2 py-1 font-semibold hover:no-underline">
+							{t("quoteForm.noteAccordion")}
+						</AccordionTrigger>
 						<AccordionContent className="px-2 pt-4 space-y-2">
 							<ReactQuill value={note} theme="snow" onChange={updateNote} />
 						</AccordionContent>

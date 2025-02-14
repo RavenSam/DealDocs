@@ -1,0 +1,54 @@
+{
+	"quoteForm": {
+		"addStepButton": "Ajouter une étape",
+		"aboutClientAccordion": "À propos du client",
+		"clientNameLabel": "Nom du client",
+		"clientAddressLabel": "Adresse du client",
+		"clientEmailLabel": "Email du client",
+		"noteAccordion": "Note"
+	},
+	"newQuote": {
+		"createTitle": "Créer",
+		"previewTitle": "Aperçu",
+		"downloadButton": "Télécharger PDF",
+		"downloadingStatus": "Téléchargement...",
+		"bannerAlt": "bannière"
+	},
+	"quoteTemplate": {
+		"businessQuoteFor": "Devis d'affaires pour",
+		"total": "Total",
+		"agencyLogoAlt": "Logo de l'agence"
+	},
+	"quoteTable": {
+		"serviceDescription": "Description du service",
+		"price": "Prix"
+	},
+	"stepItem": {
+		"stepLabel": "Étape",
+		"stepDescriptionPlaceholder": "Description de l'étape",
+		"priceLabel": "Prix",
+		"substepTotal": "Total des sous-étapes",
+		"pricePlaceholder": "Prix",
+		"calculateStepPrice": "Calculer le prix de l'étape à partir des sous-étapes",
+		"addSubstepButton": "Ajouter une sous-étape"
+	},
+	"substepItem": {
+		"substepLabel": "Sous-étape",
+		"substepDescriptionPlaceholder": "Description de la sous-étape",
+		"priceLabel": "Prix",
+		"pricePlaceholder": "Prix"
+	},
+	"settingsDrawer": {
+		"sheetTitle": "Paramètres du devis",
+		"agencyNameLabel": "Nom de l'agence",
+		"agencyLogoLabel": "URL du logo de l'agence",
+		"nameLabel": "Nom",
+		"agencyAddressLabel": "Adresse de l'agence",
+		"agencyEmailLabel": "Email de l'agence",
+		"descriptionLabel": "Description",
+		"currencyLabel": "Devise",
+		"currencyPlaceholder": "Sélectionner une devise",
+		"footerTextLabel": "Texte de pied de page",
+		"saveButton": "Enregistrer"
+	}
+}

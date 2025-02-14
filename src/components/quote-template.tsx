@@ -3,6 +3,7 @@ import { Step, useQuoteStore } from "@/store/quoteStore"
 import { useSettingsStore } from "@/store/settingsStore"
 import { formatCurrency, isEmptyHtml } from "@/utils"
 import { cn } from "@/lib/utils"
+import { useTranslation } from "react-i18next"
 
 export const QuoteTemplate = () => {
 	const quoteId = useQuoteStore((state) => state.quoteId)
@@ -10,14 +11,20 @@ export const QuoteTemplate = () => {
 	const settings = useSettingsStore((state) => state.settings)
 	const clientInfo = useQuoteStore((state) => state.clientInfo)
 	const note = useQuoteStore((state) => state.note)
+	const { t } = useTranslation()
 
-	const totalAmount = (steps || []).reduce((sum, item) => sum + item.price, 0)
+	const totalAmount = steps.reduce((sum, item) => sum + item.price, 0)
 
 	return (
 		<div className="max-w-2xl p-6 mx-auto leading-relaxed font-poppins">
 			<header className="grid grid-cols-2 mb-4">
 				<div className="flex items-center space-x-2">
-					<img src={settings.agencyLogo || "/placeholder.svg"} alt={`Logo`} className="h-20" crossOrigin="anonymous" />
+					<img
+						src={settings.agencyLogo}
+						alt={`${t("quoteTemplate.agencyLogoAlt")}`}
+						className="h-20"
+						crossOrigin="anonymous"
+					/>
 					<div>
 						<h1 className="text-xl font-bold">{settings?.agencyName}</h1>
 						<p className="text-sm text-muted-foreground">{settings?.quoteDescription}</p>
@@ -38,7 +45,7 @@ export const QuoteTemplate = () => {
 				</div>
 
 				<div className="flex flex-col text-sm text-right">
-					<h2 className="font-semibold text-muted-foreground">Business Quote For</h2>
+					<h2 className="font-semibold text-muted-foreground">{t("quoteTemplate.businessQuoteFor")}</h2>
 					<span>{clientInfo.clientName}</span>
 					<span>{clientInfo.clientAddress}</span>
 					<span>{clientInfo.clientEmail}</span>
@@ -48,7 +55,7 @@ export const QuoteTemplate = () => {
 				<QuoteTable steps={steps} currency={settings?.currency || "USD"} />
 			</div>
 			<div className="mb-8 text-xl font-bold text-right">
-				Total: {formatCurrency(totalAmount, settings?.currency || "USD")}
+				{t("quoteTemplate.total")}: {formatCurrency(totalAmount, settings?.currency || "USD")}
 			</div>
 
 			{!isEmptyHtml(note) && (
@@ -71,16 +78,18 @@ interface QuoteTableProps {
 }
 
 const QuoteTable = ({ steps, currency }: QuoteTableProps) => {
+	const { t } = useTranslation()
+
 	return (
 		<table className="w-full mb-8 border-collapse">
 			<thead>
 				<tr className="text-sm border-b border-black">
-					<th className="p-2 text-left border-b border-muted-foreground">Service Description</th>
-					<th className="p-2 text-right border-b border-muted-foreground">Price</th>
+					<th className="p-2 text-left border-b border-muted-foreground">{t("quoteTable.serviceDescription")}</th>
+					<th className="p-2 text-right border-b border-muted-foreground">{t("quoteTable.price")}</th>
 				</tr>
 			</thead>
 			<tbody>
-				{(steps || []).map((item) => (
+				{steps.map((item) => (
 					<React.Fragment key={item.id}>
 						<tr
 							className={cn(
