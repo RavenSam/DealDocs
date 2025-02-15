@@ -1,7 +1,5 @@
 # DealDocs - Streamlined Quote Generator Desktop App
 
-## Project Description
-
 DealDocs is a desktop application, built with **Tauri** and **React**, designed to simplify and streamline the process of creating project quotes. It allows users to quickly generate professional-looking PDF quotes by defining project steps and their associated pricing. The application focuses on simplicity and ease of use, providing a user-friendly interface to create quotes efficiently.
 
 ![screenshot](https://raw.githubusercontent.com/RavenSam/DealDocs/refs/heads/main/public/screenshot.png)
