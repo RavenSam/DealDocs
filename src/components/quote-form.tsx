@@ -9,9 +9,9 @@ import { useTranslation } from "react-i18next"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 import { DndContext, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
+import { useHandleItemDragEnd } from "@/hooks/use-handle-item-drag-end"
 
 import "react-quill/dist/quill.snow.css"
-import { useHandleItemDragEnd } from "@/hooks/use-handle-item-drag-end"
 
 export const QuoteForm = () => {
 	const steps = useQuoteStore((state) => state.steps)

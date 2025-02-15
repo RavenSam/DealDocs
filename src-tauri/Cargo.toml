@@ -1,7 +1,7 @@
 [package]
 name = "DealDocs"
-version = "0.1.0"
-description = "A Tauri App"
+version = "0.1.2"
+description = "A desktop application designed to simplify and streamline the process of creating project quotes. It allows users to quickly generate professional-looking PDF quotes by defining project steps and their associated pricing."
 authors = ["you"]
 edition = "2021"
 

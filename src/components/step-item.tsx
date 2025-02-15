@@ -80,7 +80,7 @@ export const StepItem = ({ step, index, id, handleItemDragEnd }: StepItemProps) 
 			className="relative p-4 pl-6 mb-4 overflow-hidden border rounded-md bg-white/40 backdrop-blur-md group"
 		>
 			<div
-				className="absolute top-0 left-0 flex items-center justify-center w-6 h-full transition-opacity duration-500 opacity-0 cursor-grab group-hover:opacity-100 bg-muted-foreground/20"
+				className="absolute top-0 left-0 flex items-center justify-center w-6 h-full transition-opacity duration-500 opacity-0 cursor-grab group-hover:opacity-100 bg-muted-foreground/10"
 				{...listeners}
 				{...attributes}
 			>
