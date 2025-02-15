@@ -11,13 +11,27 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as NewImport } from './routes/new'
 import { Route as IndexImport } from './routes/index'
+import { Route as EditQuoteIdImport } from './routes/edit.$quoteId'
 
 // Create/Update Routes
+
+const NewRoute = NewImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EditQuoteIdRoute = EditQuoteIdImport.update({
+  id: '/edit/$quoteId',
+  path: '/edit/$quoteId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +46,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/new': {
+      id: '/new'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof NewImport
+      parentRoute: typeof rootRoute
+    }
+    '/edit/$quoteId': {
+      id: '/edit/$quoteId'
+      path: '/edit/$quoteId'
+      fullPath: '/edit/$quoteId'
+      preLoaderRoute: typeof EditQuoteIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/new': typeof NewRoute
+  '/edit/$quoteId': typeof EditQuoteIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/new': typeof NewRoute
+  '/edit/$quoteId': typeof EditQuoteIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/new': typeof NewRoute
+  '/edit/$quoteId': typeof EditQuoteIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/new' | '/edit/$quoteId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/new' | '/edit/$quoteId'
+  id: '__root__' | '/' | '/new' | '/edit/$quoteId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  NewRoute: typeof NewRoute
+  EditQuoteIdRoute: typeof EditQuoteIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  NewRoute: NewRoute,
+  EditQuoteIdRoute: EditQuoteIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +115,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/new",
+        "/edit/$quoteId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/new": {
+      "filePath": "new.tsx"
+    },
+    "/edit/$quoteId": {
+      "filePath": "edit.$quoteId.tsx"
     }
   }
 }

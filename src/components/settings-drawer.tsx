@@ -10,8 +10,13 @@ import { CURRENCIES, Settings, useSettingsStore } from "@/store/settingsStore"
 import { useTranslation } from "react-i18next"
 import { DirectionAwareTabs } from "@/components/cult-ui/direction-aware-tabs"
 import { LanguageSwitcher } from "@/components/el/language-switcher"
+import { cn } from "@/lib/utils"
 
-export const SettingsDrawer = () => {
+interface SettingsDrawerProps {
+	lgButton?: boolean
+}
+
+export const SettingsDrawer = ({ lgButton }: SettingsDrawerProps) => {
 	const [open, setOpen] = useState<boolean>(false)
 	const setSettingsStore = useSettingsStore((state) => state.setSettings)
 	const { t } = useTranslation()
@@ -39,8 +44,8 @@ export const SettingsDrawer = () => {
 	return (
 		<Sheet open={open} onOpenChange={setOpen}>
 			<SheetTrigger asChild>
-				<Button variant="outline" size="icon">
-					<Settings2 className="size-5" />
+				<Button variant="outline" size="icon" className={cn("", lgButton ? "size-12" : "")}>
+					<Settings2 className={cn("", lgButton ? "size-6" : "size-5")} />
 				</Button>
 			</SheetTrigger>
 			<SheetContent className="md:max-w-xl" side={"left"}>
