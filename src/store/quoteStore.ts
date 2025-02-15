@@ -36,6 +36,8 @@ interface QuoteState {
 
 	note: string
 	updateNote: (note: string) => void
+
+	reset: () => void
 }
 
 export const useQuoteStore = create<QuoteState>((set, get) => ({
@@ -76,4 +78,12 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
 
 	note: "",
 	updateNote: (note: string) => set(() => ({ note })),
+
+	reset: () =>
+		set({
+			quoteId: generateQuoteId(),
+			steps: [{ id: Date.now(), description: "", price: 0, useSubstepPricing: false, substeps: [] }],
+			clientInfo: { clientName: "", clientEmail: "", clientAddress: "" },
+			note: "",
+		}),
 }))

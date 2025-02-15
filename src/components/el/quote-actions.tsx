@@ -28,7 +28,6 @@ export function QuoteActions({ quote, onDelete }: { quote: Quote; onDelete: (id:
 			const db = await Database.load("sqlite:dealdocs.db")
 			await db.execute("DELETE FROM quotes WHERE id = $1", [quote.id])
 			onDelete(quote.id)
-			window.location.reload()
 		} catch (error) {
 			console.error("Error deleting quote:", error)
 		}

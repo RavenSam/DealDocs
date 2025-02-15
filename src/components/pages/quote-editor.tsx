@@ -26,6 +26,12 @@ export const QuoteEditor = ({ quoteId }: QuoteEditorProps) => {
 	const { t } = useTranslation()
 
 	useEffect(() => {
+		if (!quoteId) {
+			useQuoteStore.getState().reset()
+		}
+	}, [quoteId])
+
+	useEffect(() => {
 		const storedSettings = localStorage.getItem("quoteSettings")
 		if (storedSettings) {
 			setSettings(JSON.parse(storedSettings))
