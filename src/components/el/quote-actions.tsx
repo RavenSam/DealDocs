@@ -45,7 +45,9 @@ export function QuoteActions({ quote, onDelete }: { quote: Quote; onDelete: (id:
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuItem asChild>
-						<Link to={`/edit/${quote.id}`}>{t("quoteActions.dropdownEdit")}</Link>
+						<Link to={`/edit/$quoteId`} params={{ quoteId: quote.id }}>
+							{t("quoteActions.dropdownEdit")}
+						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem className="text-red-600" onClick={() => setOpen(true)}>
 						{t("quoteActions.dropdownDelete")}
