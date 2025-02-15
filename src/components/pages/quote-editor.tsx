@@ -18,6 +18,7 @@ interface QuoteEditorProps {
 
 export const QuoteEditor = ({ quoteId }: QuoteEditorProps) => {
 	useLoadQuote(quoteId) // Use hook to load quote data from db
+
 	const setSettings = useSettingsStore((state) => state.setSettings)
 	const quoteRef = useRef<HTMLDivElement>(null)
 	const { saving, saveQuote } = useQuoteAutoSave()

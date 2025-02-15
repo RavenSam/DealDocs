@@ -7,8 +7,11 @@ import { Input } from "@/components/ui/input"
 import ReactQuill from "react-quill"
 import { useTranslation } from "react-i18next"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
+import { DndContext, closestCenter } from "@dnd-kit/core"
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 
 import "react-quill/dist/quill.snow.css"
+import { useHandleItemDragEnd } from "@/hooks/use-handle-item-drag-end"
 
 export const QuoteForm = () => {
 	const steps = useQuoteStore((state) => state.steps)
@@ -17,6 +20,7 @@ export const QuoteForm = () => {
 	const clientInfo = useQuoteStore((state) => state.clientInfo)
 	const note = useQuoteStore((state) => state.note)
 	const updateNote = useQuoteStore((state) => state.updateNote)
+	const handleItemDragEnd = useHandleItemDragEnd()
 	const { t } = useTranslation()
 
 	const [parent] = useAutoAnimate()
@@ -24,9 +28,13 @@ export const QuoteForm = () => {
 	return (
 		<div>
 			<div ref={parent}>
-				{steps.map((step, index) => (
-					<StepItem key={step.id} step={step} index={index} />
-				))}
+				<DndContext collisionDetection={closestCenter} onDragEnd={handleItemDragEnd}>
+					<SortableContext items={steps.map((step) => step.id)} strategy={verticalListSortingStrategy}>
+						{steps.map((step, index) => (
+							<StepItem key={step.id} step={step} index={index} id={step.id} handleItemDragEnd={handleItemDragEnd} />
+						))}
+					</SortableContext>
+				</DndContext>
 
 				<Button
 					onClick={addStep}

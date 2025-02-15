@@ -2,7 +2,7 @@ import { create } from "zustand"
 
 export const DEFAULT_SETTINGS: Settings = {
 	agencyName: "Agency Name",
-	agencyLogo: "/placeholder.svg",
+	agencyLogo: "https://raw.githubusercontent.com/RavenSam/DealDocs/refs/heads/main/public/logo.png",
 	quoteDescription: "Services Quote",
 	currency: "USD",
 	footerText: "Thank you for considering us for your project. Please contact us if you have any questions.",

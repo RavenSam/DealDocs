@@ -3,13 +3,24 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { PlusIcon, Trash2Icon } from "lucide-react"
+import { GripVerticalIcon, PlusIcon, Trash2Icon } from "lucide-react"
 import { SubstepItem } from "@/components/sub-step-Item"
 import { Step, Substep, useQuoteStore } from "@/store/quoteStore"
 import { useTranslation } from "react-i18next"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 
-export const StepItem = ({ step, index }: { step: Step; index: number }) => {
+import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
+import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core"
+
+interface StepItemProps {
+	step: Step
+	index: number
+	id: number
+	handleItemDragEnd: (event: DragEndEvent) => void
+}
+
+export const StepItem = ({ step, index, id, handleItemDragEnd }: StepItemProps) => {
 	const { t } = useTranslation()
 	const stepFromStore = useQuoteStore((state) => state.steps.find((s) => s.id === step.id))
 	const [useSubstepPricing, setUseSubstepPricing] = useState(stepFromStore?.useSubstepPricing || false)
@@ -51,8 +62,31 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 
 	const [parent] = useAutoAnimate()
 
+	const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+		id: id,
+		data: { type: "step" },
+	})
+
+	const style = {
+		transform: CSS.Translate.toString(transform),
+		transition,
+		zIndex: isDragging ? 20 : undefined,
+	}
+
 	return (
-		<div className="relative p-4 pl-6 mb-4 border rounded-md bg-white/40 backdrop-blur-md">
+		<div
+			ref={setNodeRef}
+			style={style}
+			className="relative p-4 pl-6 mb-4 overflow-hidden border rounded-md bg-white/40 backdrop-blur-md group"
+		>
+			<div
+				className="absolute top-0 left-0 flex items-center justify-center w-6 h-full transition-opacity duration-500 opacity-0 cursor-grab group-hover:opacity-100 bg-muted-foreground/20"
+				{...listeners}
+				{...attributes}
+			>
+				<GripVerticalIcon className="text-muted-foreground size-4" />
+			</div>
+
 			<div className="absolute flex items-center justify-center rotate-45 rounded-md left-[9px] z-10 top-3 size-8 bg-primary">
 				<span className="text-white -rotate-45">{index + 1}</span>
 			</div>
@@ -114,9 +148,13 @@ export const StepItem = ({ step, index }: { step: Step; index: number }) => {
 					</div>
 				)}
 
-				{substeps.map((substep, subIndex) => (
-					<SubstepItem key={substep.id} substep={substep} index={subIndex} />
-				))}
+				<DndContext collisionDetection={closestCenter} onDragEnd={handleItemDragEnd}>
+					<SortableContext items={substeps.map((substep) => substep.id)} strategy={verticalListSortingStrategy}>
+						{substeps.map((substep, subIndex) => (
+							<SubstepItem key={substep.id} substep={substep} index={subIndex} id={substep.id} />
+						))}
+					</SortableContext>
+				</DndContext>
 
 				<Button
 					onClick={handleAddSubstep}
