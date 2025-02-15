@@ -74,8 +74,12 @@ export function Home() {
 
 	return (
 		<div className="min-h-screen bg-gray-50">
-			<div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
-				{/* Header */}
+			<div className="relative">
+				<img src="/banner.jpg" alt={t("quoteEditor.bannerAlt")} className="w-full h-[500px] object-cover" />
+				<div className="absolute inset-0 bg-gradient-to-t from-gray-50" />
+			</div>
+
+			<div className="relative z-10 px-4 py-12 mx-auto -mt-96 max-w-7xl sm:px-6 lg:px-8">
 				<div className="flex items-center justify-between mb-8">
 					<h1 className="text-3xl font-bold">{t("quoteList.pageTitle")}</h1>
 					<Link to="/new">
@@ -86,15 +90,14 @@ export function Home() {
 					</Link>
 				</div>
 
-				{/* Search Bar */}
 				<div className="flex items-center justify-between mb-8">
-					<div className="relative">
+					<div className="relative w-full max-w-lg ">
 						<Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
 						<Input
 							placeholder={t("quoteList.searchPlaceholder")}
 							value={searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
-							className="w-full max-w-md pl-10 text-lg border-gray-300 focus:border-black focus:ring-black"
+							className="pl-10 text-lg border-gray-300 focus:border-black focus:ring-black"
 						/>
 					</div>
 
@@ -103,10 +106,9 @@ export function Home() {
 					</div>
 				</div>
 
-				{/* Quotes List */}
-				<div className="overflow-hidden bg-white rounded-lg shadow-sm">
+				<div className="overflow-hidden rounded-lg shadow-sm bg-white/50">
 					<table className="min-w-full divide-y divide-gray-200">
-						<thead className="bg-gray-50">
+						<thead className="bg-gray-50/70">
 							<tr>
 								{theadTHS.map((th, index) => (
 									<th
@@ -122,7 +124,7 @@ export function Home() {
 								))}
 							</tr>
 						</thead>
-						<tbody className="bg-white divide-y divide-gray-200">
+						<tbody className="divide-y divide-gray-200">
 							{filteredQuotes.map((quote) => (
 								<tr key={quote.id} className="hover:bg-gray-50">
 									<td className="px-6 py-4 text-sm font-medium whitespace-nowrap">{quote.id}</td>
@@ -138,7 +140,6 @@ export function Home() {
 					</table>
 				</div>
 
-				{/* Empty State */}
 				{filteredQuotes.length === 0 && (
 					<div className="py-12 text-center">
 						<h3 className="mt-2 text-sm font-semibold">{t("quoteList.emptyStateTitle")}</h3>
