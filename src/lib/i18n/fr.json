@@ -7,12 +7,14 @@
 		"clientEmailLabel": "Email du client",
 		"noteAccordion": "Note"
 	},
-	"newQuote": {
+	"quoteEditor": {
 		"createTitle": "Créer",
 		"previewTitle": "Aperçu",
 		"downloadButton": "Télécharger PDF",
 		"downloadingStatus": "Téléchargement...",
-		"bannerAlt": "bannière"
+		"bannerAlt": "bannière",
+		"savingStatus": "Enregistrement...",
+		"saveButton": "Enregistrer"
 	},
 	"quoteTemplate": {
 		"businessQuoteFor": "Devis d'affaires pour",
@@ -54,5 +56,27 @@
 		"currencyPlaceholder": "Sélectionner une devise",
 		"footerTextLabel": "Texte de pied de page",
 		"saveButton": "Enregistrer"
+	},
+	"quoteList": {
+		"pageTitle": "Devis",
+		"newQuoteButton": "Nouveau Devis",
+		"searchPlaceholder": "Rechercher des devis...",
+		"emptyStateTitle": "Aucun devis trouvé",
+		"emptyStateSearchDescription": "Essayez d'ajuster votre recherche pour trouver ce que vous cherchez.",
+		"emptyStateDefaultDescription": "Commencez par créer un nouveau devis.",
+		"tableHeaderQuote": "Devis",
+		"tableHeaderClient": "Client",
+		"tableHeaderDate": "Date",
+		"tableHeaderTotal": "Total",
+		"tableHeaderActions": "Actions"
+	},
+	"quoteActions": {
+		"dropdownEdit": "Modifier",
+		"dropdownDelete": "Supprimer",
+		"alertTitle": "Êtes-vous absolument sûr ?",
+		"alertDescription": "Cette action est irréversible. Cela supprimera définitivement le devis.",
+		"alertCancel": "Annuler",
+		"alertActionDeleting": "Suppression...",
+		"alertActionDelete": "Supprimer"
 	}
 }

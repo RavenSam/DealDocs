@@ -7,12 +7,14 @@
 		"clientEmailLabel": "Client Email",
 		"noteAccordion": "Note"
 	},
-	"newQuote": {
+	"quoteEditor": {
 		"createTitle": "Create",
 		"previewTitle": "Preview",
 		"downloadButton": "Download PDF",
 		"downloadingStatus": "Downloading...",
-		"bannerAlt": "banner"
+		"bannerAlt": "banner",
+		"savingStatus": "Saving...",
+		"saveButton": "Save"
 	},
 	"quoteTemplate": {
 		"businessQuoteFor": "Business Quote For",
@@ -54,5 +56,27 @@
 		"currencyPlaceholder": "Select a currency",
 		"footerTextLabel": "Footer Text",
 		"saveButton": "Save"
+	},
+	"quoteList": {
+		"pageTitle": "Quotes",
+		"newQuoteButton": "New Quote",
+		"searchPlaceholder": "Search quotes...",
+		"emptyStateTitle": "No quotes found",
+		"emptyStateSearchDescription": "Try adjusting your search to find what you're looking for.",
+		"emptyStateDefaultDescription": "Get started by creating a new quote.",
+		"tableHeaderQuote": "Quote",
+		"tableHeaderClient": "Client",
+		"tableHeaderDate": "Date",
+		"tableHeaderTotal": "Total",
+		"tableHeaderActions": "Actions"
+	},
+	"quoteActions": {
+		"dropdownEdit": "Edit",
+		"dropdownDelete": "Delete",
+		"alertTitle": "Are you absolutely sure?",
+		"alertDescription": "This action cannot be undone. This will permanently delete the quote.",
+		"alertCancel": "Cancel",
+		"alertActionDeleting": "Deleting...",
+		"alertActionDelete": "Delete"
 	}
 }

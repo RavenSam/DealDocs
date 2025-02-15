@@ -15,10 +15,12 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Quote } from "@/components/pages/home"
 import { Link } from "@tanstack/react-router"
+import { useTranslation } from "react-i18next"
 
 export function QuoteActions({ quote, onDelete }: { quote: Quote; onDelete: (id: string) => void }) {
 	const [open, setOpen] = useState(false)
 	const [deleting, setDeleting] = useState(false)
+	const { t } = useTranslation()
 
 	const handleDelete = async () => {
 		setDeleting(true)
@@ -44,10 +46,10 @@ export function QuoteActions({ quote, onDelete }: { quote: Quote; onDelete: (id:
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuItem asChild>
-						<Link to={`/edit/${quote.id}`}>Edit</Link>
+						<Link to={`/edit/${quote.id}`}>{t("quoteActions.dropdownEdit")}</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem className="text-red-600" onClick={() => setOpen(true)}>
-						Delete
+						{t("quoteActions.dropdownDelete")}
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
@@ -55,15 +57,13 @@ export function QuoteActions({ quote, onDelete }: { quote: Quote; onDelete: (id:
 			<AlertDialog open={open} onOpenChange={setOpen}>
 				<AlertDialogContent>
 					<AlertDialogHeader>
-						<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-						<AlertDialogDescription>
-							This action cannot be undone. This will permanently delete the quote.
-						</AlertDialogDescription>
+						<AlertDialogTitle>{t("quoteActions.alertTitle")}</AlertDialogTitle>
+						<AlertDialogDescription>{t("quoteActions.alertDescription")}</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
-						<AlertDialogCancel>Cancel</AlertDialogCancel>
+						<AlertDialogCancel>{t("quoteActions.alertCancel")}</AlertDialogCancel>
 						<AlertDialogAction onClick={handleDelete} className="bg-rose-500 hover:bg-rose-700">
-							{deleting ? "Deleting..." : "Delete"}
+							{deleting ? t("quoteActions.alertActionDeleting") : t("quoteActions.alertActionDelete")}
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>

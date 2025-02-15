@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { SettingsDrawer } from "@/components/settings-drawer"
 import Database from "@tauri-apps/plugin-sql"
 import { QuoteActions } from "@/components/el/quote-actions"
+import { useTranslation } from "react-i18next"
 
 export interface Quote {
 	id: string
@@ -23,6 +24,7 @@ export interface Quote {
 export function Home() {
 	const [searchQuery, setSearchQuery] = useState("")
 	const [quotes, setQuotes] = useState<Quote[]>([])
+	const { t } = useTranslation()
 
 	const filteredQuotes = quotes.filter(
 		(quote) =>
@@ -36,24 +38,24 @@ export function Home() {
 
 	const theadTHS = [
 		{
-			className: "px-6 py-3 text-xs font-medium tracking-wider text-left text-muted-foreground uppercase",
-			content: "Quote",
+			className: "",
+			content: t("quoteList.tableHeaderQuote"),
 		},
 		{
-			className: "px-6 py-3 text-xs font-medium tracking-wider text-left text-muted-foreground uppercase",
-			content: "Client",
+			className: "",
+			content: t("quoteList.tableHeaderClient"),
 		},
 		{
-			className: "px-6 py-3 text-xs font-medium tracking-wider text-left text-muted-foreground uppercase",
-			content: "Date",
+			className: "",
+			content: t("quoteList.tableHeaderDate"),
 		},
 		{
-			className: "px-6 py-3 text-xs font-medium tracking-wider text-left text-muted-foreground uppercase",
-			content: "Total",
+			className: "",
+			content: t("quoteList.tableHeaderTotal"),
 		},
 		{
 			className: "relative px-6 py-3",
-			content: <span className="sr-only">Actions</span>,
+			content: <span className="sr-only">{t("quoteList.tableHeaderActions")}</span>,
 		},
 	]
 
@@ -75,11 +77,11 @@ export function Home() {
 			<div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
 				{/* Header */}
 				<div className="flex items-center justify-between mb-8">
-					<h1 className="text-3xl font-bold">Quotes</h1>
+					<h1 className="text-3xl font-bold">{t("quoteList.pageTitle")}</h1>
 					<Link to="/new">
 						<Button size="lg" className="text-white bg-black hover:bg-gray-800">
 							<Plus className="w-5 h-5 mr-2" />
-							New Quote
+							{t("quoteList.newQuoteButton")}
 						</Button>
 					</Link>
 				</div>
@@ -89,7 +91,7 @@ export function Home() {
 					<div className="relative">
 						<Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
 						<Input
-							placeholder="Search quotes..."
+							placeholder={t("quoteList.searchPlaceholder")}
 							value={searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
 							className="w-full max-w-md pl-10 text-lg border-gray-300 focus:border-black focus:ring-black"
@@ -139,17 +141,15 @@ export function Home() {
 				{/* Empty State */}
 				{filteredQuotes.length === 0 && (
 					<div className="py-12 text-center">
-						<h3 className="mt-2 text-sm font-semibold">No quotes found</h3>
+						<h3 className="mt-2 text-sm font-semibold">{t("quoteList.emptyStateTitle")}</h3>
 						<p className="mt-1 text-sm text-muted-foreground">
-							{searchQuery
-								? "Try adjusting your search to find what you're looking for."
-								: "Get started by creating a new quote."}
+							{searchQuery ? t("quoteList.emptyStateSearchDescription") : t("quoteList.emptyStateDefaultDescription")}
 						</p>
 						<div className="mt-6">
 							<Link to="/new">
-								<Button size="lg" className="text-white bg-black hover:bg-gray-800">
-									<Plus className="w-5 h-5 mr-2" />
-									New Quote
+								<Button variant={"outline"}>
+									<Plus className="mr-2 size-4" />
+									{t("quoteList.newQuoteButton")}
 								</Button>
 							</Link>
 						</div>

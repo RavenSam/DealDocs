@@ -136,30 +136,30 @@ export const QuoteEditor = ({ quoteId }: QuoteEditorProps) => {
 	return (
 		<div className="relative">
 			<div className="relative">
-				<img src="/banner.jpg" alt={t("newQuote.bannerAlt")} className="w-full h-[400px] object-cover" />
+				<img src="/banner.jpg" alt={t("quoteEditor.bannerAlt")} className="w-full h-[400px] object-cover" />
 				<div className="absolute inset-0 bg-gradient-to-t from-white" />
 			</div>
 
 			<div className="container relative z-10 p-4 mx-auto -mt-64">
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 ">
 					<div>
-						<h2 className="mb-4 text-xl font-semibold">{t("newQuote.createTitle")}</h2>
+						<h2 className="mb-4 text-xl font-semibold">{t("quoteEditor.createTitle")}</h2>
 						<QuoteForm />
 						<div className="mt-4">
 							<Button onClick={saveQuote} disabled={saving}>
 								{saving ? <Loader2Icon className="size-4 animate-spin" /> : <SaveIcon className="size-4" />}
-								<span className="ml-1">{saving ? t("newQuote.savingStatus") : t("newQuote.saveButton")}</span>
+								<span className="ml-1">{saving ? t("quoteEditor.savingStatus") : t("quoteEditor.saveButton")}</span>
 							</Button>
 						</div>
 					</div>
 					<div>
 						<div className="flex items-center justify-between">
-							<h2 className="mb-4 text-xl font-semibold">{t("newQuote.previewTitle")}</h2>
+							<h2 className="mb-4 text-xl font-semibold">{t("quoteEditor.previewTitle")}</h2>
 							<div className="flex items-center -mt-2 space-x-2">
 								<Button onClick={downloadPdf} variant="outline" disabled={downloading}>
 									{downloading ? <Loader2Icon className="size-4 animate-spin" /> : <DownloadIcon className="size-4" />}
 									<span className="ml-1">
-										{downloading ? t("newQuote.downloadingStatus") : t("newQuote.downloadButton")}
+										{downloading ? t("quoteEditor.downloadingStatus") : t("quoteEditor.downloadButton")}
 									</span>
 								</Button>
 								<SettingsDrawer />
