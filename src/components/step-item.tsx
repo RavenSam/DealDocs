@@ -12,6 +12,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react"
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core"
+import { NumberInput } from "./ui/number-input"
 
 interface StepItemProps {
 	step: Step
@@ -113,12 +114,11 @@ export const StepItem = ({ step, index, id, handleItemDragEnd }: StepItemProps) 
 						</span>
 					</Label>
 
-					<Input
+					<NumberInput
 						className="mt-1"
-						type="number"
 						id={`step-price-${step.id}`}
 						placeholder={t("stepItem.pricePlaceholder")}
-						onChange={(e) => updateStep(step.id, "price", parseFloat(e.target.value))}
+						onValueChange={(value) => updateStep(step.id, "price", parseFloat(value.toString()))}
 						value={useSubstepPricing ? calculatedStepPrice : stepFromStore?.price || 0}
 						readOnly={useSubstepPricing}
 						disabled={useSubstepPricing}

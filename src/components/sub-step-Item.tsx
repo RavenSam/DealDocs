@@ -6,6 +6,7 @@ import { Substep, useQuoteStore } from "@/store/quoteStore"
 import { useTranslation } from "react-i18next"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
+import { NumberInput } from "./ui/number-input"
 
 export const SubstepItem = ({ substep, index, id }: { substep: Substep; index: number; id: number }) => {
 	const updateSubstepsForStep = useQuoteStore((state) => state.updateSubstepsForStep)
@@ -68,14 +69,17 @@ export const SubstepItem = ({ substep, index, id }: { substep: Substep; index: n
 					autoFocus
 				/>
 			</div>
-			<div>
-				<Label htmlFor={`substep-price-${substep.id}`}>{t("substepItem.priceLabel")}</Label>
-				<Input
-					type="number"
+			<div className="-mt-1">
+				<Label className="" htmlFor={`substep-price-${substep.id}`}>
+					{t("substepItem.priceLabel")}
+				</Label>
+				<NumberInput
+					min={0}
 					id={`substep-price-${substep.id}`}
+					className="-mt-1"
 					placeholder={t("substepItem.pricePlaceholder")}
 					value={substep.price}
-					onChange={(e) => handleSubstepChange("price", parseFloat(e.target.value))}
+					onValueChange={(value) => handleSubstepChange("price", parseFloat(value.toString()))}
 				/>
 			</div>
 			<div className="flex items-end justify-end">
