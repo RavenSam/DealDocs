@@ -8,6 +8,7 @@ import { SettingsDrawer } from "@/components/settings-drawer"
 import Database from "@tauri-apps/plugin-sql"
 import { QuoteActions } from "@/components/el/quote-actions"
 import { useTranslation } from "react-i18next"
+import { useAutoAnimate } from "@formkit/auto-animate/react"
 
 export interface Quote {
 	id: string
@@ -72,6 +73,8 @@ export function Home() {
 		loadQuote()
 	}, [])
 
+	const [parent] = useAutoAnimate()
+
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<div className="relative">
@@ -92,12 +95,12 @@ export function Home() {
 
 				<div className="flex items-center justify-between mb-8">
 					<div className="relative w-full max-w-lg ">
-						<Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
+						<Search className="absolute z-10 text-gray-400 transform -translate-y-1/2 size-4 left-3 top-1/2" />
 						<Input
 							placeholder={t("quoteList.searchPlaceholder")}
 							value={searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
-							className="pl-10 text-lg border-gray-300 focus:border-black focus:ring-black"
+							className="pl-10 text-lg border-gray-300 focus:border-black focus:ring-black backdrop-blur"
 						/>
 					</div>
 
@@ -106,7 +109,7 @@ export function Home() {
 					</div>
 				</div>
 
-				<div className="overflow-hidden rounded-lg shadow-sm bg-white/50">
+				<div className="overflow-hidden rounded-lg shadow-sm bg-white/50 backdrop-blur">
 					<table className="min-w-full divide-y divide-gray-200">
 						<thead className="bg-gray-50/70">
 							<tr>
@@ -124,38 +127,42 @@ export function Home() {
 								))}
 							</tr>
 						</thead>
-						<tbody className="divide-y divide-gray-200">
-							{filteredQuotes.map((quote) => (
-								<tr key={quote.id} className="hover:bg-gray-50">
-									<td className="px-6 py-4 text-sm font-medium whitespace-nowrap">{quote.id}</td>
-									<td className="px-6 py-4 text-sm text-muted-foreground whitespace-nowrap">{quote.clientName}</td>
-									<td className="px-6 py-4 text-sm text-muted-foreground whitespace-nowrap">{quote.created_at}</td>
-									<td className="px-6 py-4 text-sm whitespace-nowrap">{quote.total_price}</td>
-									<td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-										<QuoteActions quote={quote} onDelete={handleDeleteQuote} />
+						<tbody ref={parent} className="divide-y divide-gray-200">
+							{filteredQuotes.length > 0 ? (
+								filteredQuotes.map((quote) => (
+									<tr key={quote.id} className="w-full hover:bg-gray-50/40">
+										<td className="px-6 py-4 text-sm font-medium whitespace-nowrap">{quote.id}</td>
+										<td className="px-6 py-4 text-sm text-muted-foreground whitespace-nowrap">{quote.clientName}</td>
+										<td className="px-6 py-4 text-sm text-muted-foreground whitespace-nowrap">{quote.created_at}</td>
+										<td className="px-6 py-4 text-sm whitespace-nowrap">{quote.total_price}</td>
+										<td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+											<QuoteActions quote={quote} onDelete={handleDeleteQuote} />
+										</td>
+									</tr>
+								))
+							) : (
+								<tr>
+									<td colSpan={theadTHS.length} className="py-12 text-center">
+										<h3 className="mt-2 text-sm font-semibold">{t("quoteList.emptyStateTitle")}</h3>
+										<p className="mt-1 text-sm text-muted-foreground">
+											{searchQuery
+												? t("quoteList.emptyStateSearchDescription")
+												: t("quoteList.emptyStateDefaultDescription")}
+										</p>
+										<div className="mt-6">
+											<Link to="/new">
+												<Button variant={"outline"}>
+													<Plus className="mr-2 size-4" />
+													{t("quoteList.newQuoteButton")}
+												</Button>
+											</Link>
+										</div>
 									</td>
 								</tr>
-							))}
+							)}
 						</tbody>
 					</table>
 				</div>
-
-				{filteredQuotes.length === 0 && (
-					<div className="py-12 text-center">
-						<h3 className="mt-2 text-sm font-semibold">{t("quoteList.emptyStateTitle")}</h3>
-						<p className="mt-1 text-sm text-muted-foreground">
-							{searchQuery ? t("quoteList.emptyStateSearchDescription") : t("quoteList.emptyStateDefaultDescription")}
-						</p>
-						<div className="mt-6">
-							<Link to="/new">
-								<Button variant={"outline"}>
-									<Plus className="mr-2 size-4" />
-									{t("quoteList.newQuoteButton")}
-								</Button>
-							</Link>
-						</div>
-					</div>
-				)}
 			</div>
 		</div>
 	)
