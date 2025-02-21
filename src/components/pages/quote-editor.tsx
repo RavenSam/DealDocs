@@ -50,7 +50,7 @@ export const QuoteEditor = ({ quoteId }: QuoteEditorProps) => {
 				<Button
 					variant="outline"
 					size={"icon"}
-					className="absolute text-white border-none -top-32 backdrop-blur hover:text-white left-4"
+					className="absolute text-white border-none -top-32 backdrop-blur bg-white/50 hover:text-white left-4"
 					asChild
 				>
 					<Link to="/">

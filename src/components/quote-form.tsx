@@ -4,14 +4,14 @@ import { useQuoteStore } from "@/store/quoteStore"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import ReactQuill from "react-quill"
+import ReactQuill from "react-quill-new"
 import { useTranslation } from "react-i18next"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 import { DndContext, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { useHandleItemDragEnd } from "@/hooks/use-handle-item-drag-end"
 
-import "react-quill/dist/quill.snow.css"
+import "react-quill-new/dist/quill.snow.css"
 
 export const QuoteForm = () => {
 	const steps = useQuoteStore((state) => state.steps)
@@ -91,7 +91,7 @@ export const QuoteForm = () => {
 							{t("quoteForm.noteAccordion")}
 						</AccordionTrigger>
 						<AccordionContent className="px-2 pt-4 space-y-2">
-							<ReactQuill value={note} theme="snow" onChange={updateNote} />
+							<ReactQuill value={note} placeholder="Add in a note" theme="snow" onChange={updateNote} />
 						</AccordionContent>
 					</AccordionItem>
 				</Accordion>
